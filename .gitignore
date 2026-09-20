@@ -1,0 +1,7 @@
+# Raw research and private assignment materials belong OUTSIDE this directory.
+.DS_Store
+.env
+.env.*
+node_modules/
+__pycache__/
+*.log
