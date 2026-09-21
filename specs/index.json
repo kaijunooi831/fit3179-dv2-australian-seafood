@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "vis01",
+    "spec": "specs/01-sector-trend.json",
+    "title": "Farmed and wild production have taken different paths",
+    "data": "data/sector_real.csv",
+    "chapter": 1,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
+  }
+]

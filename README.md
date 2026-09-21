@@ -8,4 +8,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 
 [Chart manifest](specs/index.json)
 
-
+- [Farmed and wild production have taken different paths](specs/01-sector-trend.json)
