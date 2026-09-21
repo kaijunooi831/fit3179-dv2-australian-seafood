@@ -1,0 +1,20 @@
+kind,name,code,longitude,latitude,anchor_basis
+jurisdiction,New South Wales,NSW,146.45923,-32.82645,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,Victoria,VIC,144.56949,-36.57492,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,Queensland,QLD,143.05246,-19.93296,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,South Australia,SA,136.9443,-32.02368,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,Western Australia,WA,121.2019,-24.44779,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,Tasmania,TAS,146.66904,-42.14463,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+jurisdiction,Northern Territory,NT,133.49812,-18.42817,Interior representative point of largest displayed ABS polygon; aggregate display anchor
+origin,Australia,AUS,134.04972,-24.129522,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Hong Kong,HKG,114.097769,22.448829,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Vietnam,VNM,105.387292,21.715416,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Japan,JPN,138.44217,36.142538,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,China,CHN,106.337289,32.498178,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Singapore,SGP,103.816925,1.366587,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,United States,USA,-97.482602,39.538479,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Taiwan,TWN,120.868204,23.652408,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Thailand,THA,101.073198,15.45974,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,New Zealand,NZL,172.787,-39.759,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Malaysia,MYS,113.83708,2.528667,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
+partner,Indonesia,IDN,101.892949,-0.954404,Natural Earth 5.1.2 50m LABEL_X/Y; aggregate display anchor
