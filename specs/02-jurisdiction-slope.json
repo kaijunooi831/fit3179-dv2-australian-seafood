@@ -1,0 +1,194 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 340,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    }
+  },
+  "data": {
+    "url": "data/state_real.csv"
+  },
+  "transform": [
+    {
+      "filter": {
+        "field": "year_end",
+        "oneOf": [
+          1999,
+          2025
+        ]
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      },
+      "scale": {
+        "type": "point",
+        "padding": 0,
+        "range": [
+          0,
+          {
+            "expr": "max(0, width - 96)"
+          }
+        ]
+      }
+    },
+    "y": {
+      "field": "aquaculture_share",
+      "type": "quantitative",
+      "title": "Share of local value from farming",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "axis": {
+        "format": ".0%"
+      }
+    },
+    "detail": {
+      "field": "state",
+      "type": "nominal"
+    },
+    "color": {
+      "condition": [
+        {
+          "test": "stateFocus !== 'All seven places' && datum.state === stateFocus",
+          "value": "#183b46"
+        },
+        {
+          "test": "datum.state === 'Tasmania'",
+          "value": "#365d69"
+        },
+        {
+          "test": "datum.state === 'Western Australia'",
+          "value": "#805915"
+        }
+      ],
+      "value": "#9aa9a5"
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State or territory"
+      },
+      {
+        "field": "year",
+        "type": "nominal"
+      },
+      {
+        "field": "aquaculture_share",
+        "type": "quantitative",
+        "title": "Share from farming",
+        "format": ".1%"
+      }
+    ],
+    "opacity": {
+      "condition": {
+        "test": "stateFocus === 'All seven places' || datum.state === stateFocus",
+        "value": 1
+      },
+      "value": 0.12
+    },
+    "strokeWidth": {
+      "condition": {
+        "test": "stateFocus === 'All seven places' ? indexof(['Tasmania','Western Australia'],datum.state)>=0 : datum.state === stateFocus",
+        "value": 3
+      },
+      "value": 1.4
+    }
+  },
+  "params": [
+    {
+      "name": "stateFocus",
+      "value": "All seven places",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All seven places",
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "Northern Territory"
+        ],
+        "name": "Highlight state or territory: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 70
+        }
+      }
+    },
+    {
+      "name": "slope_endpoint_labels",
+      "transform": [
+        {
+          "filter": "toNumber(datum.year_end) === 2025 && (stateFocus === 'All seven places' ? indexof(['Tasmania','Western Australia'],datum.state)>=0 : datum.state === stateFocus)"
+        },
+        {
+          "calculate": "({\"New South Wales\": \"NSW\", \"Victoria\": \"VIC\", \"Queensland\": \"QLD\", \"South Australia\": \"SA\", \"Western Australia\": \"WA\", \"Tasmania\": \"TAS\", \"Northern Territory\": \"NT\"})[datum.state]+' '+format(datum.aquaculture_share,'.1%')",
+          "as": "endpoint_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {
+          "field": "endpoint_label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "description": "Farming\u2019s share rose in some states and territories and fell in others"
+}
