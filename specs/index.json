@@ -22,5 +22,13 @@
     "data": "data/state_real.csv",
     "chapter": 1,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis03",
+    "spec": "specs/03-aquaculture-choropleth.json",
+    "title": "Tasmania\u2019s production value is overwhelmingly farmed",
+    "data": "data/state_map.csv",
+    "chapter": 2,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
