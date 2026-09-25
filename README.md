@@ -10,3 +10,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 
 - [Farmed and wild production have taken different paths](specs/01-sector-trend.json)
 - [Farming’s share rose in some states and territories and fell in others](specs/02-jurisdiction-slope.json)
+- [The middle farming share rose, but places remain different](specs/13-jurisdiction-distribution.json)

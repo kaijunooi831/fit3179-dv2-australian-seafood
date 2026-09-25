@@ -14,5 +14,13 @@
     "data": "data/state_real.csv",
     "chapter": 1,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis13",
+    "spec": "specs/13-jurisdiction-distribution.json",
+    "title": "The middle farming share rose, but places remain different",
+    "data": "data/state_real.csv",
+    "chapter": 1,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]

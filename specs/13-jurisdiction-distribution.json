@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 310,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    },
+    "numberFormat": ".1%"
+  },
+  "data": {
+    "url": "data/state_real.csv"
+  },
+  "transform": [
+    {
+      "filter": {
+        "field": "year_end",
+        "oneOf": [
+          1999,
+          2010,
+          2020,
+          2025
+        ]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "boxplot",
+        "extent": "min-max",
+        "size": 40,
+        "color": "#087f83",
+        "box": {
+          "fillOpacity": 0.18,
+          "stroke": "#087f83"
+        },
+        "median": {
+          "color": "#087f83",
+          "strokeWidth": 2
+        }
+      }
+    },
+    {
+      "name": "jurisdiction_observations",
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#183b46",
+        "size": 35,
+        "opacity": 0.85,
+        "stroke": "#f8f6ef",
+        "strokeWidth": 0.7,
+        "xOffset": {
+          "expr": "(indexof([\"New South Wales\", \"Victoria\", \"Queensland\", \"South Australia\", \"Western Australia\", \"Tasmania\", \"Northern Territory\"], datum.state) - 3) * 4"
+        }
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "aquaculture_share",
+            "type": "quantitative",
+            "title": "Share from farming",
+            "format": ".1%"
+          }
+        ]
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelExpr": "[datum.label, datum.label === '1998\u201399' ? '32.4%' : datum.label === '2009\u201310' ? '39.0%' : datum.label === '2019\u201320' ? '49.7%' : datum.label === '2024\u201325' ? '52.6%' : '']",
+        "labelFontSize": 11,
+        "labelLineHeight": 15
+      }
+    },
+    "y": {
+      "field": "aquaculture_share",
+      "type": "quantitative",
+      "title": "Farming share",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "axis": {
+        "format": ".0%"
+      }
+    }
+  },
+  "description": "The middle farming share rose, but places remain different"
+}
