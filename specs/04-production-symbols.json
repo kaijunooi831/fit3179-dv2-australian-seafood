@@ -1,0 +1,180 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 400,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ],
+    "center": [
+      0,
+      -27
+    ]
+  },
+  "params": [
+    {
+      "name": "mapSector",
+      "value": "Combined",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Combined",
+          "Aquaculture",
+          "Wild catch"
+        ],
+        "name": "Production value: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia_states.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#edf0eb",
+        "stroke": "white",
+        "aria": false
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_map.csv"
+      },
+      "transform": [
+        {
+          "calculate": "mapSector === 'Aquaculture' ? datum.aquaculture_m : mapSector === 'Wild catch' ? datum.wild_m : datum.total_m",
+          "as": "shown"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "#183b46",
+        "fillOpacity": 0.45,
+        "stroke": "#183b46",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "shown",
+          "type": "quantitative",
+          "title": "A$ million",
+          "scale": {
+            "domain": [
+              0,
+              1500
+            ],
+            "range": [
+              0,
+              5000
+            ],
+            "zero": true
+          },
+          "legend": {
+            "values": [
+              100,
+              500,
+              1500
+            ],
+            "symbolLimit": 3,
+            "columns": {
+              "expr": "width < 340 ? 2 : 3"
+            },
+            "direction": "horizontal"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal"
+          },
+          {
+            "field": "shown",
+            "type": "quantitative",
+            "title": "Production value (A$m)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_map.csv"
+      },
+      "mark": {
+        "type": "text",
+        "dy": -4,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#142d34"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "abbrev",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "description": "The largest production values are concentrated in Tasmania and the west"
+}

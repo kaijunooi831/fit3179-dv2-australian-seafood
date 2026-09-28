@@ -30,5 +30,13 @@
     "data": "data/state_map.csv",
     "chapter": 2,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis04",
+    "spec": "specs/04-production-symbols.json",
+    "title": "The largest production values are concentrated in Tasmania and the west",
+    "data": "data/state_map.csv",
+    "chapter": 2,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
