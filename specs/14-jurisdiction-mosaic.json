@@ -1,0 +1,158 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 350,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    }
+  },
+  "data": {
+    "url": "data/state_mix_mosaic.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "x2": {
+          "field": "x1"
+        },
+        "y": {
+          "field": "y0",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "domain": [
+              0,
+              1.1
+            ]
+          }
+        },
+        "y2": {
+          "field": "y1"
+        },
+        "color": {
+          "field": "sector",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Aquaculture",
+              "Wild catch"
+            ],
+            "range": [
+              "#087f83",
+              "#c45d3a"
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Place"
+          },
+          {
+            "field": "sector",
+            "type": "nominal"
+          },
+          {
+            "field": "value_m",
+            "type": "quantitative",
+            "title": "Production value (A$m)",
+            "format": ",.1f"
+          },
+          {
+            "field": "sector_share",
+            "type": "quantitative",
+            "title": "Share of this place\u2019s value",
+            "format": ".1%"
+          },
+          {
+            "field": "total_m",
+            "type": "quantitative",
+            "title": "Combined value (A$m)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.sector === 'Aquaculture'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#183b46",
+        "baseline": "top"
+      },
+      "encoding": {
+        "x": {
+          "field": "xc",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "y": {
+          "value": 5
+        },
+        "text": {
+          "field": "abbrev",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "description": "Tasmania dominates the farmed value within state-managed production"
+}

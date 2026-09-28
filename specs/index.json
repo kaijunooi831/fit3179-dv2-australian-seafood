@@ -38,5 +38,13 @@
     "data": "data/state_map.csv",
     "chapter": 2,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis14",
+    "spec": "specs/14-jurisdiction-mosaic.json",
+    "title": "Tasmania dominates the farmed value within state-managed production",
+    "data": "data/state_mix_mosaic.csv",
+    "chapter": 2,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]

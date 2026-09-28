@@ -13,3 +13,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 - [The middle farming share rose, but places remain different](specs/13-jurisdiction-distribution.json)
 - [Tasmania’s production value is overwhelmingly farmed](specs/03-aquaculture-choropleth.json)
 - [The largest production values are concentrated in Tasmania and the west](specs/04-production-symbols.json)
+- [Tasmania dominates the farmed value within state-managed production](specs/14-jurisdiction-mosaic.json)
