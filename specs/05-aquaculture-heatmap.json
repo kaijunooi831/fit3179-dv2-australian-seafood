@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 470,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    }
+  },
+  "data": {
+    "url": "data/aquaculture_mix.csv"
+  },
+  "mark": {
+    "type": "rect",
+    "stroke": "#f8f9f5",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": -45,
+        "labelFontSize": 11
+      }
+    },
+    "y": {
+      "field": "species",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "value_m",
+        "op": "sum",
+        "order": "descending"
+      },
+      "axis": {
+        "labelLimit": 130
+      }
+    },
+    "color": {
+      "field": "share",
+      "type": "quantitative",
+      "title": "Share of aquaculture value",
+      "scale": {
+        "domain": [
+          0,
+          0.7
+        ],
+        "range": [
+          "#eaf1e9",
+          "#086d75"
+        ]
+      },
+      "legend": {
+        "format": ".0%",
+        "gradientLength": {
+          "expr": "min(170, max(90, width - 8))"
+        }
+      }
+    },
+    "tooltip": [
+      {
+        "field": "species",
+        "type": "nominal"
+      },
+      {
+        "field": "year",
+        "type": "nominal"
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share",
+        "format": ".2%"
+      },
+      {
+        "field": "value_m",
+        "type": "quantitative",
+        "title": "A$ million",
+        "format": ",.2f"
+      }
+    ]
+  },
+  "description": "Salmonids dominate farmed value across the decade"
+}

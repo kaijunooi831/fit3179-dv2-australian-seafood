@@ -46,5 +46,13 @@
     "data": "data/state_mix_mosaic.csv",
     "chapter": 2,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis05",
+    "spec": "specs/05-aquaculture-heatmap.json",
+    "title": "Salmonids dominate farmed value across the decade",
+    "data": "data/aquaculture_mix.csv",
+    "chapter": 3,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
