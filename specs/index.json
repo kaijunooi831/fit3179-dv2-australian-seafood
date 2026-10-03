@@ -54,5 +54,13 @@
     "data": "data/aquaculture_mix.csv",
     "chapter": 3,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis06",
+    "spec": "specs/06-national-treemap.json",
+    "title": "Salmonids make up 34% of national industry value",
+    "data": "data/species_latest.csv",
+    "chapter": 3,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]

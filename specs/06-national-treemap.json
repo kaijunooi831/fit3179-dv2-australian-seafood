@@ -1,0 +1,189 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "width": 650,
+  "height": 350,
+  "padding": 0,
+  "autosize": {
+    "type": "none",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "config": {
+    "font": "Geist"
+  },
+  "data": [
+    {
+      "name": "raw",
+      "url": "data/species_latest.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "value_m": "number",
+          "share": "number"
+        }
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "tree_root",
+      "values": [
+        {
+          "label": "root",
+          "value_m": 0
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "source": [
+        "raw",
+        "tree_root"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "label",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "value_m",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "method": "squarify",
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "paddingInner": 2,
+          "round": true
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!datum.children"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "Tunas",
+        "Salmonids",
+        "Other fish",
+        "Prawns",
+        "Rock Lobsters",
+        "Crabs",
+        "Other crustaceans",
+        "Abalone",
+        "Scallops",
+        "Oysters",
+        "Squids",
+        "Other molluscs",
+        "Other industry"
+      ],
+      "range": [
+        "#a84729",
+        "#087f83",
+        "#805915",
+        "#97513d",
+        "#365d69",
+        "#466774",
+        "#506039",
+        "#426d63",
+        "#666329",
+        "#486f6c",
+        "#425c65",
+        "#805b46",
+        "#526152"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "description": "Species categories sized by national production value; exact values in the chart tooltip",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "label"
+          },
+          "tooltip": {
+            "signal": "{'Category':datum.label,'A$ million':format(datum.value_m,',.1f'),'Share':format(datum.share,'.1%')}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.x0+8"
+          },
+          "y": {
+            "signal": "datum.y0+18"
+          },
+          "text": {
+            "signal": "datum.label === 'Salmonids' ? [datum.label, format(datum.share, '.1%')] : datum.label"
+          },
+          "limit": {
+            "signal": "max(0,datum.x1-datum.x0-16)"
+          },
+          "fontSize": {
+            "value": 13
+          },
+          "fill": {
+            "value": "white"
+          },
+          "opacity": {
+            "signal": "datum.x1-datum.x0>85 && datum.y1-datum.y0>32 ? 1 : 0"
+          },
+          "lineHeight": {
+            "value": 18
+          }
+        }
+      }
+    }
+  ],
+  "description": "Salmonids make up 34% of national industry value"
+}

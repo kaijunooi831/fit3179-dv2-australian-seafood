@@ -15,3 +15,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 - [The largest production values are concentrated in Tasmania and the west](specs/04-production-symbols.json)
 - [Tasmania dominates the farmed value within state-managed production](specs/14-jurisdiction-mosaic.json)
 - [Salmonids dominate farmed value across the decade](specs/05-aquaculture-heatmap.json)
+- [Salmonids make up 34% of national industry value](specs/06-national-treemap.json)
