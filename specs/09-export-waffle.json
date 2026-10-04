@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": "container",
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Geist",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "labelColor": "#52666b",
+      "titleColor": "#52666b",
+      "gridColor": "#e4e9e7",
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 8,
+      "titlePadding": 12
+    },
+    "legend": {
+      "orient": "bottom",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelLimit": 220,
+      "columns": 2,
+      "symbolSize": 90,
+      "padding": 8
+    }
+  },
+  "data": {
+    "url": "data/waffle.csv"
+  },
+  "mark": {
+    "type": "rect",
+    "stroke": "#fff",
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "x",
+      "type": "ordinal",
+      "axis": null
+    },
+    "y": {
+      "field": "y",
+      "type": "ordinal",
+      "axis": null
+    },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "title": null,
+      "legend": null,
+      "scale": {
+        "domain": [
+          "Rock Lobsters",
+          "Salmonids",
+          "Tunas",
+          "All others"
+        ],
+        "range": [
+          "#365d69",
+          "#087f83",
+          "#a84729",
+          "#d9dfd6"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "group",
+        "type": "nominal",
+        "title": "Product group"
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share of all export value",
+        "format": ".1%"
+      }
+    ]
+  },
+  "description": "Three commodities account for 75.4% of export value"
+}

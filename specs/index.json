@@ -78,5 +78,13 @@
     "data": "data/value_change.csv",
     "chapter": 3,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis09",
+    "spec": "specs/09-export-waffle.json",
+    "title": "Three commodities account for 75.4% of export value",
+    "data": "data/waffle.csv",
+    "chapter": 4,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
