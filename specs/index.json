@@ -70,5 +70,13 @@
     "data": "data/species_scatter.csv",
     "chapter": 3,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis08",
+    "spec": "specs/08-value-waterfall.json",
+    "title": "Rock-lobster gains offset most other category declines",
+    "data": "data/value_change.csv",
+    "chapter": 3,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]

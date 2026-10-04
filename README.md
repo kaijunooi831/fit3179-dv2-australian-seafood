@@ -17,3 +17,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 - [Salmonids dominate farmed value across the decade](specs/05-aquaculture-heatmap.json)
 - [Salmonids make up 34% of national industry value](specs/06-national-treemap.json)
 - [More tonnes do not necessarily mean more production value](specs/07-value-volume.json)
+- [Rock-lobster gains offset most other category declines](specs/08-value-waterfall.json)
