@@ -86,5 +86,13 @@
     "data": "data/waffle.csv",
     "chapter": 4,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis10",
+    "spec": "specs/10-export-bump.json",
+    "title": "Rock lobster has regained the top export rank",
+    "data": "data/export_ranks.csv",
+    "chapter": 4,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
