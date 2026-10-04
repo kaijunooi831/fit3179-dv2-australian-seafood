@@ -62,5 +62,13 @@
     "data": "data/species_latest.csv",
     "chapter": 3,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis07",
+    "spec": "specs/07-value-volume.json",
+    "title": "More tonnes do not necessarily mean more production value",
+    "data": "data/species_scatter.csv",
+    "chapter": 3,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]
