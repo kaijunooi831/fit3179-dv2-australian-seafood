@@ -5,7 +5,7 @@
     "title": "Farmed and wild production have taken different paths",
     "data": "data/sector_real.csv",
     "chapter": 1,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis02",
@@ -13,7 +13,7 @@
     "title": "Farming\u2019s share rose in some states and territories and fell in others",
     "data": "data/state_real.csv",
     "chapter": 1,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; current offline checks; fresh browser verification pending; public verification pending"
   },
   {
     "id": "vis13",
@@ -21,7 +21,7 @@
     "title": "The middle farming share rose, but places remain different",
     "data": "data/state_real.csv",
     "chapter": 1,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; current offline checks; fresh browser verification pending; public verification pending"
   },
   {
     "id": "vis03",
@@ -29,7 +29,7 @@
     "title": "Tasmania\u2019s production value is overwhelmingly farmed",
     "data": "data/state_map.csv",
     "chapter": 2,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis04",
@@ -37,7 +37,7 @@
     "title": "The largest production values are concentrated in Tasmania and the west",
     "data": "data/state_map.csv",
     "chapter": 2,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis14",
@@ -45,7 +45,7 @@
     "title": "Tasmania dominates the farmed value within state-managed production",
     "data": "data/state_mix_mosaic.csv",
     "chapter": 2,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis05",
@@ -53,7 +53,7 @@
     "title": "Salmonids dominate farmed value across the decade",
     "data": "data/aquaculture_mix.csv",
     "chapter": 3,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; current offline checks; fresh browser verification pending; public verification pending"
   },
   {
     "id": "vis06",
@@ -61,7 +61,7 @@
     "title": "Salmonids make up 34% of national industry value",
     "data": "data/species_latest.csv",
     "chapter": 3,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis07",
@@ -69,7 +69,7 @@
     "title": "More tonnes do not necessarily mean more production value",
     "data": "data/species_scatter.csv",
     "chapter": 3,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis08",
@@ -77,7 +77,7 @@
     "title": "Rock-lobster gains offset most other category declines",
     "data": "data/value_change.csv",
     "chapter": 3,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis09",
@@ -85,7 +85,7 @@
     "title": "Three commodities account for 75.4% of export value",
     "data": "data/waffle.csv",
     "chapter": 4,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; current offline checks; fresh browser verification pending; public verification pending"
   },
   {
     "id": "vis10",
@@ -93,7 +93,7 @@
     "title": "Rock lobster has regained the top export rank",
     "data": "data/export_ranks.csv",
     "chapter": 4,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; locally browser-tested; public verification pending"
   },
   {
     "id": "vis12",
@@ -101,6 +101,6 @@
     "title": "Asian destinations lead the selected edible export markets",
     "data": "data/partner_map.csv",
     "chapter": 4,
-    "status": "development stage; intermediate browser behaviour not checked; not published"
+    "status": "source-verified; current offline checks; fresh browser verification pending; public verification pending"
   }
 ]

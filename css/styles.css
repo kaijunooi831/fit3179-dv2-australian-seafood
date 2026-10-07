@@ -35,7 +35,6 @@
 html { scroll-behavior: smooth; scroll-padding-top: var(--chapter-offset, 94px); }
 body {
   margin: 0;
-  border-top: 6px solid var(--ink);
   background: var(--paper);
   color: var(--text);
   font-family: Geist, sans-serif;
@@ -71,9 +70,6 @@ h2 { font-size: clamp(2.2rem, 4.1vw, 3.4rem); line-height: 1.16; margin: 0 0 22p
 /* Layer 1 holds chapter navigation; layer 2 lets the skip link sit above it. */
 .story-nav { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 .nav-inner { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 0 32px; border-bottom: 1px solid #b9c8bc; }
-#page-top { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
-.is-scrolled body { border-top-color: transparent; }
-.is-scrolled .nav-inner { border-bottom-color: transparent; }
 .story-nav a { display: inline-flex; align-items: center; min-height: 64px; text-decoration: none; color: var(--ink); font-size: .88rem; font-weight: 550; border-bottom: 2px solid transparent; padding: 2px 0 0; }
 .story-nav a:hover { color: var(--link); }
 .story-nav a[aria-current="location"] { border-bottom-color: var(--aqua); color: var(--link); }
@@ -183,8 +179,9 @@ footer p { max-width: 95ch; }
 .vega-bindings select:focus-visible { outline: 2px solid var(--aqua); outline-offset: -2px; border-color: var(--aqua); }
 .vega-embed summary { display: none; }
 .vega-embed.has-actions { padding-right: 0; }
-#vg-tooltip-element { font-family: Geist, sans-serif; color: var(--ink); }
-#vg-tooltip-element table tr td.key { color: var(--muted); }
+body #vg-tooltip-element { font-family: Geist, sans-serif; font-size: 14px; line-height: 1.45; color: var(--ink); background: var(--paper); max-width: min(360px, calc(100vw - 24px)); padding: 10px 12px; }
+body #vg-tooltip-element table tr td.key { color: var(--muted); text-align: left; padding-right: 12px; }
+body #vg-tooltip-element table tr td.value { color: var(--ink); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
 /* Wide figures pair interpretation with provenance; reading order stays intact. */
 @media (min-width: 1001px) {
   .chapter > .chart-block {
