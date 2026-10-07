@@ -94,5 +94,13 @@
     "data": "data/export_ranks.csv",
     "chapter": 4,
     "status": "development stage; intermediate browser behaviour not checked; not published"
+  },
+  {
+    "id": "vis12",
+    "spec": "specs/12-export-flow.json",
+    "title": "Asian destinations lead the selected edible export markets",
+    "data": "data/partner_map.csv",
+    "chapter": 4,
+    "status": "development stage; intermediate browser behaviour not checked; not published"
   }
 ]

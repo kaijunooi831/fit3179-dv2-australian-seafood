@@ -1,0 +1,839 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "width": 1000,
+  "height": 440,
+  "padding": 0,
+  "autosize": {
+    "type": "none",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "config": {
+    "font": "Geist"
+  },
+  "signals": [
+    {
+      "name": "compact",
+      "update": "width < 760"
+    },
+    {
+      "name": "mapWidth",
+      "update": "compact ? width : width * 0.64"
+    },
+    {
+      "name": "mapHeight",
+      "update": "compact ? 220 : 330"
+    },
+    {
+      "name": "keyX",
+      "update": "compact ? 0 : mapWidth + 28"
+    },
+    {
+      "name": "keyY",
+      "update": "compact ? mapHeight + 126 : 50"
+    },
+    {
+      "name": "keyWidth",
+      "update": "width-keyX"
+    },
+    {
+      "name": "height",
+      "update": "compact ? keyY + 352 : 438"
+    },
+    {
+      "name": "partnerFocus",
+      "value": "All selected partners",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All selected partners",
+          "China",
+          "Hong Kong",
+          "Japan",
+          "United States",
+          "Singapore",
+          "Vietnam",
+          "Taiwan",
+          "Indonesia",
+          "New Zealand",
+          "Thailand",
+          "Malaysia"
+        ],
+        "name": "Highlight destination: "
+      }
+    }
+  ],
+  "data": [
+    {
+      "name": "world",
+      "url": "data/world.geojson",
+      "format": {
+        "type": "json",
+        "property": "features"
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.properties.name !== 'Antarctica'"
+        }
+      ]
+    },
+    {
+      "name": "partners",
+      "url": "data/partner_map.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "value_m": "number",
+          "longitude": "number",
+          "latitude": "number",
+          "origin_longitude": "number",
+          "origin_latitude": "number"
+        }
+      },
+      "transform": [
+        {
+          "type": "collect",
+          "sort": {
+            "field": "value_m",
+            "order": "descending"
+          }
+        },
+        {
+          "type": "geopoint",
+          "projection": "worldProjection",
+          "fields": [
+            "origin_longitude",
+            "origin_latitude"
+          ],
+          "as": [
+            "sx",
+            "sy"
+          ]
+        },
+        {
+          "type": "geopoint",
+          "projection": "worldProjection",
+          "fields": [
+            "longitude",
+            "latitude"
+          ],
+          "as": [
+            "tx",
+            "ty"
+          ]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.partner === 'China' ? 0.32 : datum.partner === 'Malaysia' ? -0.34 : datum.partner === 'Hong Kong' ? 0.12 : datum.partner === 'Singapore' ? -0.2 : datum.partner === 'Vietnam' ? -0.05 : datum.partner === 'Thailand' ? -0.12 : datum.partner === 'Indonesia' ? -0.38 : 0.2",
+          "as": "bend"
+        },
+        {
+          "type": "formula",
+          "expr": "(datum.sx+datum.tx)/2 + (datum.ty-datum.sy)*datum.bend",
+          "as": "cx"
+        },
+        {
+          "type": "formula",
+          "expr": "(datum.sy+datum.ty)/2 - (datum.tx-datum.sx)*datum.bend",
+          "as": "cy"
+        },
+        {
+          "type": "formula",
+          "expr": "'M'+datum.sx+','+datum.sy+' Q'+datum.cx+','+datum.cy+' '+datum.tx+','+datum.ty",
+          "as": "curve"
+        },
+        {
+          "type": "formula",
+          "expr": "0.0225*datum.sx+0.255*datum.cx+0.7225*datum.tx",
+          "as": "ax"
+        },
+        {
+          "type": "formula",
+          "expr": "0.0225*datum.sy+0.255*datum.cy+0.7225*datum.ty",
+          "as": "ay"
+        },
+        {
+          "type": "formula",
+          "expr": "atan2(0.15*(datum.cy-datum.sy)+0.85*(datum.ty-datum.cy),0.15*(datum.cx-datum.sx)+0.85*(datum.tx-datum.cx))*180/PI",
+          "as": "angle"
+        }
+      ]
+    },
+    {
+      "name": "labels",
+      "source": "partners",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "partnerFocus === 'All selected partners' ? indexof(['China','Malaysia'],datum.partner)>=0 : datum.partner === partnerFocus"
+        }
+      ]
+    },
+    {
+      "name": "origin",
+      "values": [
+        {
+          "longitude": 134.04972,
+          "latitude": -24.129522
+        }
+      ],
+      "transform": [
+        {
+          "type": "geopoint",
+          "projection": "worldProjection",
+          "fields": [
+            "longitude",
+            "latitude"
+          ],
+          "as": [
+            "x",
+            "y"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "widthKey",
+      "values": [
+        {
+          "value_m": 50,
+          "x": 0
+        },
+        {
+          "value_m": 200,
+          "x": 100
+        },
+        {
+          "value_m": 650,
+          "x": 205
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "worldProjection",
+      "type": "equalEarth",
+      "rotate": [
+        -130,
+        0,
+        0
+      ],
+      "fit": {
+        "signal": "data('world')"
+      },
+      "extent": {
+        "signal": "[[8,38],[mapWidth-8,mapHeight+28]]"
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "flowWidth",
+      "type": "linear",
+      "domain": [
+        0,
+        700
+      ],
+      "range": [
+        0,
+        14
+      ],
+      "zero": true
+    },
+    {
+      "name": "barLength",
+      "type": "linear",
+      "domain": [
+        0,
+        700
+      ],
+      "range": {
+        "signal": "[0,max(40,keyWidth-178)]"
+      },
+      "zero": true
+    },
+    {
+      "name": "rows",
+      "type": "band",
+      "domain": {
+        "data": "partners",
+        "field": "partner"
+      },
+      "range": [
+        0,
+        286
+      ],
+      "padding": 0.32
+    }
+  ],
+  "marks": [
+    {
+      "name": "period",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "value": 15
+          },
+          "text": {
+            "value": "2024\u201325 \u00b7 preliminary"
+          },
+          "fill": {
+            "value": "#183b46"
+          },
+          "fontSize": {
+            "value": 13
+          },
+          "fontWeight": {
+            "value": "bold"
+          }
+        }
+      }
+    },
+    {
+      "name": "basemap",
+      "type": "shape",
+      "from": {
+        "data": "world"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "fill": {
+            "value": "#e6ebe3"
+          },
+          "stroke": {
+            "value": "#f8f6ef"
+          },
+          "strokeWidth": {
+            "value": 0.6
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "worldProjection"
+        }
+      ]
+    },
+    {
+      "name": "flows",
+      "type": "path",
+      "from": {
+        "data": "partners"
+      },
+      "encode": {
+        "update": {
+          "path": {
+            "field": "curve"
+          },
+          "stroke": {
+            "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+          },
+          "strokeWidth": {
+            "scale": "flowWidth",
+            "field": "value_m"
+          },
+          "strokeOpacity": {
+            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.8 : 0.07"
+          },
+          "fill": {
+            "value": null
+          },
+          "tooltip": {
+            "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325 (preliminary)','Edible exports (A$m)':format(datum.value_m,',.1f')}"
+          },
+          "description": {
+            "signal": "'Australian edible exports to '+datum.partner+': A$'+format(datum.value_m,',.1f')+' million, 2024\u201325 preliminary'"
+          }
+        }
+      }
+    },
+    {
+      "name": "arrows",
+      "type": "symbol",
+      "from": {
+        "data": "partners"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "x": {
+            "field": "ax"
+          },
+          "y": {
+            "field": "ay"
+          },
+          "shape": {
+            "value": "triangle-right"
+          },
+          "angle": {
+            "field": "angle"
+          },
+          "size": {
+            "signal": "pow(max(7,scale('flowWidth',datum.value_m)*1.8),2)"
+          },
+          "fill": {
+            "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+          },
+          "opacity": {
+            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.9 : 0.07"
+          }
+        }
+      }
+    },
+    {
+      "name": "destinations",
+      "description": "Destination anchors; select or hover for the edible export value",
+      "type": "symbol",
+      "from": {
+        "data": "partners"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "tx"
+          },
+          "y": {
+            "field": "ty"
+          },
+          "size": {
+            "value": 22
+          },
+          "fill": {
+            "signal": "datum.partner === partnerFocus ? '#a84729' : '#183b46'"
+          },
+          "opacity": {
+            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 1 : 0.16"
+          },
+          "tooltip": {
+            "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325 (preliminary)','Edible exports (A$m)':format(datum.value_m,',.1f')}"
+          }
+        }
+      }
+    },
+    {
+      "name": "originDot",
+      "type": "symbol",
+      "from": {
+        "data": "origin"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "size": {
+            "value": 60
+          },
+          "fill": {
+            "value": "#183b46"
+          }
+        }
+      }
+    },
+    {
+      "name": "originLabel",
+      "type": "text",
+      "from": {
+        "data": "origin"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y",
+            "offset": 22
+          },
+          "text": {
+            "value": "Australia"
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "#183b46"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fontWeight": {
+            "value": "bold"
+          }
+        }
+      }
+    },
+    {
+      "name": "destinationLabels",
+      "type": "text",
+      "from": {
+        "data": "labels"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.tx+(datum.tx>mapWidth*0.7 ? -8 : 8)"
+          },
+          "y": {
+            "field": "ty",
+            "offset": -10
+          },
+          "text": {
+            "field": "partner"
+          },
+          "align": {
+            "signal": "datum.tx>mapWidth*0.7 ? 'right' : 'left'"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#183b46"
+          },
+          "limit": {
+            "signal": "min(150,mapWidth-16)"
+          }
+        }
+      }
+    },
+    {
+      "name": "legendTitle",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "signal": "mapHeight+63"
+          },
+          "text": {
+            "value": "Shaft width = export value (A$m)"
+          },
+          "fill": {
+            "value": "#183b46"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fontWeight": {
+            "value": "bold"
+          }
+        }
+      }
+    },
+    {
+      "name": "widthSamples",
+      "type": "rule",
+      "from": {
+        "data": "widthKey"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "x2": {
+            "field": "x",
+            "offset": 28
+          },
+          "y": {
+            "signal": "mapHeight+88"
+          },
+          "stroke": {
+            "value": "#087f83"
+          },
+          "strokeWidth": {
+            "scale": "flowWidth",
+            "field": "value_m"
+          }
+        }
+      }
+    },
+    {
+      "name": "widthLabels",
+      "type": "text",
+      "from": {
+        "data": "widthKey"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x",
+            "offset": 35
+          },
+          "y": {
+            "signal": "mapHeight+92"
+          },
+          "text": {
+            "signal": "format(datum.value_m,',.0f')"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fill": {
+            "value": "#52666b"
+          }
+        }
+      }
+    },
+    {
+      "name": "rankedKey",
+      "type": "group",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "keyX"
+          },
+          "y": {
+            "signal": "keyY"
+          },
+          "width": {
+            "signal": "keyWidth"
+          },
+          "height": {
+            "value": 342
+          }
+        }
+      },
+      "marks": [
+        {
+          "name": "rankTitle",
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "value": 0
+              },
+              "text": {
+                "value": "Compare the values"
+              },
+              "fill": {
+                "value": "#183b46"
+              },
+              "fontSize": {
+                "value": 13
+              },
+              "fontWeight": {
+                "value": "bold"
+              }
+            }
+          }
+        },
+        {
+          "name": "rankUnits",
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "value": 21
+              },
+              "text": {
+                "value": "Edible exports \u00b7 A$ million"
+              },
+              "fill": {
+                "value": "#52666b"
+              },
+              "fontSize": {
+                "value": 12
+              }
+            }
+          }
+        },
+        {
+          "name": "zeroLabel",
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 118
+              },
+              "y": {
+                "value": 341
+              },
+              "text": {
+                "value": "0"
+              },
+              "fill": {
+                "value": "#52666b"
+              },
+              "fontSize": {
+                "value": 11
+              }
+            }
+          }
+        },
+        {
+          "name": "maxLabel",
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "118+scale('barLength',700)"
+              },
+              "y": {
+                "value": 341
+              },
+              "text": {
+                "value": "700"
+              },
+              "fill": {
+                "value": "#52666b"
+              },
+              "fontSize": {
+                "value": 11
+              },
+              "align": {
+                "value": "right"
+              }
+            }
+          }
+        },
+        {
+          "name": "keyBaseline",
+          "type": "rule",
+          "aria": false,
+          "encode": {
+            "update": {
+              "x": {
+                "value": 118
+              },
+              "y": {
+                "value": 38
+              },
+              "y2": {
+                "value": 324
+              },
+              "stroke": {
+                "value": "#ccd4cb"
+              }
+            }
+          }
+        },
+        {
+          "name": "valueBars",
+          "description": "Ranked edible export values for the same eleven destinations, measured from zero",
+          "type": "rect",
+          "from": {
+            "data": "partners"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "value": 118
+              },
+              "x2": {
+                "signal": "118+scale('barLength',datum.value_m)"
+              },
+              "y": {
+                "signal": "38+scale('rows',datum.partner)"
+              },
+              "height": {
+                "signal": "bandwidth('rows')"
+              },
+              "fill": {
+                "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+              },
+              "opacity": {
+                "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.9 : 0.2"
+              },
+              "tooltip": {
+                "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325 (preliminary)','Edible exports (A$m)':format(datum.value_m,',.1f')}"
+              }
+            }
+          }
+        },
+        {
+          "name": "keyDestinations",
+          "type": "text",
+          "from": {
+            "data": "partners"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "38+scale('rows',datum.partner)+bandwidth('rows')/2"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "text": {
+                "field": "partner"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "fill": {
+                "value": "#183b46"
+              },
+              "fontWeight": {
+                "signal": "datum.partner === partnerFocus ? 'bold' : 'normal'"
+              }
+            }
+          }
+        },
+        {
+          "name": "keyValues",
+          "type": "text",
+          "from": {
+            "data": "partners"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "keyWidth-3"
+              },
+              "y": {
+                "signal": "38+scale('rows',datum.partner)+bandwidth('rows')/2"
+              },
+              "align": {
+                "value": "right"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "text": {
+                "signal": "format(datum.value_m,',.1f')"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "fill": {
+                "value": "#183b46"
+              },
+              "fontWeight": {
+                "signal": "datum.partner === partnerFocus ? 'bold' : 'normal'"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "description": "Asian destinations lead the selected edible export markets"
+}

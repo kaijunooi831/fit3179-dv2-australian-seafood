@@ -20,3 +20,4 @@ Static HTML/CSS/JavaScript using Vega, Vega-Lite and Vega-Embed. Run `python3 -m
 - [Rock-lobster gains offset most other category declines](specs/08-value-waterfall.json)
 - [Three commodities account for 75.4% of export value](specs/09-export-waffle.json)
 - [Rock lobster has regained the top export rank](specs/10-export-bump.json)
+- [Asian destinations lead the selected edible export markets](specs/12-export-flow.json)
