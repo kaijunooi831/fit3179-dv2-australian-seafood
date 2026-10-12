@@ -101,6 +101,8 @@ h1 em { color: var(--link); font-weight: 450; }
 .source { font-size: .8125rem; color: var(--muted); line-height: 1.6; margin: 16px 0 0; }
 .vis { width: 100%; min-width: 0; min-height: 300px; }
 .vis.map { min-height: 400px; }
+/* State labels must leave hover events on the map marks beneath them. */
+#vis03 .mark-text text, #vis04 .mark-text text { pointer-events: none; }
 .grid { display: grid; gap: 40px; }
 .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 /* Paired figures share heading, guide, chart, reading and source rows. */
