@@ -78,7 +78,7 @@ h1 { font-size: clamp(3.6rem, 7vw, 5.2rem); line-height: 1.1; margin: 0 0 22px; 
 h1 em { color: var(--link); font-weight: 450; }
 .dek { font-size: 1.2rem; line-height: 1.65; margin: 0; }
 .dek strong { font-weight: 600; }
-.intro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; padding: 24px 0 48px; font-size: .9rem; border-bottom: 1px solid var(--line); }
+.intro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; padding: 60px 0 48px; font-size: .9rem; border-bottom: 1px solid var(--line); }
 .intro p { margin: 0; }
 .data-context { grid-column: 1 / -1; align-self: start; background: var(--surface); border: 1px solid var(--line); container-type: inline-size; }
 .data-context h2 { font-family: Geist, sans-serif; font-size: .94rem; font-weight: 650; letter-spacing: -.01em; margin: 0; padding: 18px 22px; border-bottom: 1px solid var(--line); line-height: 1.4; }
