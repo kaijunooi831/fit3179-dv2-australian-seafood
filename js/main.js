@@ -80,9 +80,9 @@
   async function start(){
     if(typeof window.vegaEmbed!=='function'){status.textContent='The local chart library could not load. Reload to retry.';for(const node of document.querySelectorAll('.vis'))fail(node,new Error('Chart library unavailable'));return;}
     await document.fonts.ready;
-    try{const manifest=await (await fetchOK('specs/index.json')).json();let rendered=0;let next=0;
-      await Promise.all(Array.from({length:3},async()=>{while(next<manifest.length){if(await render(manifest[next++]))rendered++;}}));
-      status.textContent=`${rendered} of ${manifest.length} charts loaded.`;window.__dv2Views=views;window.__dv2Ready=true;
+    try{const manifest=await (await fetchOK('specs/index.json')).json();let next=0;
+      await Promise.all(Array.from({length:3},async()=>{while(next<manifest.length){await render(manifest[next++]);}}));
+      window.__dv2Views=views;window.__dv2Ready=true;
     }catch(error){status.textContent=`The chart index could not load: ${error.message}`;for(const node of document.querySelectorAll('.vis'))fail(node,error);}
   }
   let resizeTimer;
