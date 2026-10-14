@@ -72,7 +72,7 @@
       // Vega treemap uses explicit dimensions; Vega-Lite handles container width itself.
       if(spec.$schema.includes('/vega/'))spec.width=Math.floor(node.clientWidth);
       const loader=window.vega.loader();loader.load=url=>loadResource(url);
-      const result=await window.vegaEmbed(node,spec,{actions:false,renderer:'svg',tooltip:true,loader});views.set(chart.id,result);
+      const result=await window.vegaEmbed(node,spec,{actions:true,renderer:'svg',tooltip:true,loader});views.set(chart.id,result);
       node.dataset.chartState='rendered';return true;
     }catch(error){console.error(chart.spec,error);fail(node,error);return false;}
     finally{node.setAttribute('aria-busy','false');}
