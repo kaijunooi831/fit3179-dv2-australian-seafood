@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -74,8 +74,6 @@
         "type": "point",
         "filled": true,
         "color": "#183b46",
-        "size": 35,
-        "opacity": 0.85,
         "stroke": "#f8f6ef",
         "strokeWidth": 0.7,
         "xOffset": {
@@ -100,7 +98,21 @@
             "title": "Share from farming",
             "format": ".1%"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "test": "boxFocus === 'All seven places' || datum.state === boxFocus",
+            "value": 0.95
+          },
+          "value": 0.2
+        },
+        "size": {
+          "condition": {
+            "test": "datum.state === boxFocus",
+            "value": 110
+          },
+          "value": 55
+        }
       }
     }
   ],
@@ -112,8 +124,8 @@
       "axis": {
         "labelAngle": 0,
         "labelExpr": "[datum.label, datum.label === '1998\u201399' ? '32.4%' : datum.label === '2009\u201310' ? '39.0%' : datum.label === '2019\u201320' ? '49.7%' : datum.label === '2024\u201325' ? '52.6%' : '']",
-        "labelFontSize": 11,
-        "labelLineHeight": 15
+        "labelFontSize": 13,
+        "labelLineHeight": 17
       }
     },
     "y": {
@@ -131,5 +143,25 @@
       }
     }
   },
+  "params": [
+    {
+      "name": "boxFocus",
+      "value": "All seven places",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All seven places",
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "Northern Territory"
+        ],
+        "name": "Follow a place: "
+      }
+    }
+  ],
   "description": "The middle farming share rose, but places remain different"
 }

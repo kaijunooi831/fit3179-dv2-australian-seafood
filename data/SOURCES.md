@@ -1,6 +1,6 @@
 # Sources and data dictionary
 
-Prepared by Ooi Kai Jun, updated 3 October 2026. All currency is Australian dollars. Exported files contain derived public statistics; source workbooks and private assessment materials are not website assets.
+Prepared by Ooi Kai Jun, updated 14 October 2026. All currency is Australian dollars. Exported files contain derived public statistics; source workbooks and private assessment materials are not website assets.
 
 ## Production and trade
 
@@ -48,6 +48,7 @@ Publisher: Australian Bureau of Statistics (ABS), *Consumer Price Index, Austral
 | sector_real.csv | year_end, sector | adds real_m from ABS CPI factor |
 | state_series.csv / state_real.csv | year_end, state | aquaculture_m, wild_m, total_m, aquaculture_share=aqua/(aqua+state wild), real_m |
 | state_map.csv | state, 2024–25p | above + longitude/latitude from map_anchors; no Commonwealth allocation |
+| state_map_series.csv | state, financial year, 1998–99 to 2024–25p | 189 existing Table 1 observations joined to the same whole-jurisdiction anchors; state_year is the unique state/year lookup key; amounts on the symbol map are each year's current A$m |
 | state_mix_mosaic.csv | jurisdiction group, sector, 2024–25p | observed Table 1 state values; TAS, WA, SA, QLD and a disclosed NSW/VIC/NT pool. x0/x1 are each group’s share of the seven-jurisdiction total; y0/y1 partition its farmed and state-managed wild value. Rectangle area therefore represents sector value. Commonwealth excluded. |
 | species_series.csv | year_end, species | Table 2 exhaustive leaf value_m and tonnes; pooled categories preserved |
 | species_latest.csv | species, 2024–25p | value_m, tonnes, label, share of adjusted national total |
@@ -71,10 +72,20 @@ The dropdown chevron is from [Radix Icons](https://github.com/radix-ui/icons/blo
 
 ## Map design references
 
-Circle area scaling follows the [EU scaled-symbol map guidance](https://data.europa.eu/apps/data-visualisation-guide/scaled-symbol-maps). Circles use a shared zero-origin size scale across sector choices; their coordinates are jurisdiction display anchors.
+Circle area scaling follows the [EU scaled-symbol map guidance](https://data.europa.eu/apps/data-visualisation-guide/scaled-symbol-maps). Circles use a shared zero-origin size scale across sector choices and years, with a fixed A$0–2,000m domain covering the observed history; their coordinates are jurisdiction display anchors.
 
 The [Axis Maps classification guide](https://www.axismaps.com/guide/data-classification) and [Datawrapper's classed/unclassed comparison](https://www.datawrapper.de/blog/classed-vs-unclassed-color-scales) inform the choropleth's continuous 0–100% sequential ramp. Seven observed jurisdiction shares are not forced into arbitrary bins; the exact values are available in text, tooltips and tables. The Week 8–9 course notes support this choice and explain why dot/bin maps, cartograms and scalar-field contours would be less truthful or less readable for these aggregate observations.
 
 The export map's proportional shaft widths, curved relationships and direction arrows are informed by [Jenny et al. (2018), Design principles for origin–destination flow maps](https://doi.org/10.1080/15230406.2016.1262280), with the [Monash research record](https://research.monash.edu/en/publications/design-principles-for-origin-destination-flow-maps/). Curves are arranged in projected display space, not observed routes. Arrowheads indicate direction; the ranked value key uses the same eleven monetary observations and destination highlight. The year remains 2024–25 preliminary.
 
 The jurisdiction-distribution view follows Vega-Lite’s [min–max box-plot example](https://vega.github.io/vega-lite/examples/boxplot_minmax_2D_vertical.html): four observed years, seven jurisdiction shares in each, with median, middle-half box and full-range whiskers. With only seven observations per year, it describes the observed states rather than a population estimate. The [Vega-Lite mosaic example](https://vega.github.io/vega-lite/examples/rect_mosaic_labelled_with_offset.html) supports variable-width columns partitioned by a second category; here both dimensions come from measured Table 1 value. The mosaic is a seven-jurisdiction composition, not the adjusted national total or a physical flow.
+
+## Chart grouping and comparison scales
+
+The national treemap follows the intermediate headings in ABARES Table 2: Finfish, Sharks and Rays (leaf rows 11–13), Crustaceans (16–19) and Molluscs (22–26). Other products (row 28, source “Other nei”) remain a separate leaf. Group headers carry zero additional value; leaf amounts and the adjusted national total are unchanged. Small rectangles retain full product names and amounts in their tooltips.
+
+The heatmap's “All groups” view uses a fixed 0–70% scale. “Explore smaller groups” excludes salmonids and uses a fixed 0–10% scale across all ten years. Both use each year's total aquaculture value as the denominator, including salmonids. Filtering does not renormalise shares. The box plot keeps all seven observations in each year when a place is highlighted.
+
+Full state names and the Victoria leader are annotations at the existing whole-state anchors; label offsets do not relocate observations. The export map uses one Equal Earth projection for land, the ocean sphere and graticule. Destination selection filters connections while the complete ranked comparison and fixed monetary width scale remain unchanged.
+
+For a selected connection with a shaft below 1.5 pixels, a dashed 1.5-pixel guide improves visibility. This guide indicates selection, not export value. The underlying solid shaft retains its original proportional width; the overview and all ranked-bar values are unchanged.

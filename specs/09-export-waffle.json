@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -66,9 +66,9 @@
           "All others"
         ],
         "range": [
-          "#365d69",
-          "#087f83",
-          "#a84729",
+          "#265d9b",
+          "#7356a1",
+          "#8f6a12",
           "#d9dfd6"
         ]
       }

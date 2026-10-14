@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -62,7 +62,7 @@
         "range": [
           0,
           {
-            "expr": "max(0, width - 96)"
+            "expr": "max(0, width - 178)"
           }
         ]
       }
@@ -93,11 +93,11 @@
         },
         {
           "test": "datum.state === 'Tasmania'",
-          "value": "#365d69"
+          "value": "#183b46"
         },
         {
           "test": "datum.state === 'Western Australia'",
-          "value": "#805915"
+          "value": "#737875"
         }
       ],
       "value": "#9aa9a5"
@@ -171,21 +171,27 @@
           "filter": "toNumber(datum.year_end) === 2025 && (stateFocus === 'All seven places' ? indexof(['Tasmania','Western Australia'],datum.state)>=0 : datum.state === stateFocus)"
         },
         {
-          "calculate": "({\"New South Wales\": \"NSW\", \"Victoria\": \"VIC\", \"Queensland\": \"QLD\", \"South Australia\": \"SA\", \"Western Australia\": \"WA\", \"Tasmania\": \"TAS\", \"Northern Territory\": \"NT\"})[datum.state]+' '+format(datum.aquaculture_share,'.1%')",
+          "calculate": "datum.state+'\\n'+format(datum.aquaculture_share,'.1%')",
           "as": "endpoint_label"
         }
       ],
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 8,
-        "fontSize": 11,
+        "dx": 10,
+        "lineBreak": "\n",
+        "lineHeight": 17,
+        "dy": -8,
+        "fontSize": 13,
         "fontWeight": "bold"
       },
       "encoding": {
         "text": {
           "field": "endpoint_label",
           "type": "nominal"
+        },
+        "color": {
+          "value": "#183b46"
         }
       }
     }

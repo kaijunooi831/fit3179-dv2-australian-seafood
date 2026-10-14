@@ -18,19 +18,19 @@
     },
     {
       "name": "mapWidth",
-      "update": "compact ? width : width * 0.64"
+      "update": "width"
     },
     {
       "name": "mapHeight",
-      "update": "compact ? 220 : 330"
+      "update": "max(240,min(510,width*0.48))"
     },
     {
       "name": "keyX",
-      "update": "compact ? 0 : mapWidth + 28"
+      "update": "0"
     },
     {
       "name": "keyY",
-      "update": "compact ? mapHeight + 126 : 50"
+      "update": "mapHeight + 126"
     },
     {
       "name": "keyWidth",
@@ -38,7 +38,7 @@
     },
     {
       "name": "height",
-      "update": "compact ? keyY + 352 : 438"
+      "update": "keyY + 352"
     },
     {
       "name": "partnerFocus",
@@ -59,11 +59,31 @@
           "Thailand",
           "Malaysia"
         ],
-        "name": "Highlight destination: "
+        "name": "Show destination: "
       }
     }
   ],
   "data": [
+    {
+      "name": "ocean",
+      "values": [
+        {
+          "type": "Sphere"
+        }
+      ]
+    },
+    {
+      "name": "graticule",
+      "transform": [
+        {
+          "type": "graticule",
+          "step": [
+            30,
+            30
+          ]
+        }
+      ]
+    },
     {
       "name": "world",
       "url": "data/world.geojson",
@@ -161,6 +181,16 @@
       ]
     },
     {
+      "name": "routes",
+      "source": "partners",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus"
+        }
+      ]
+    },
+    {
       "name": "labels",
       "source": "partners",
       "transform": [
@@ -209,6 +239,16 @@
           "x": 205
         }
       ]
+    },
+    {
+      "name": "selectionGuide",
+      "source": "routes",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "partnerFocus !== 'All selected partners' && scale('flowWidth',datum.value_m) < 1.5"
+        }
+      ]
     }
   ],
   "projections": [
@@ -221,7 +261,7 @@
         0
       ],
       "fit": {
-        "signal": "data('world')"
+        "signal": "data('ocean')"
       },
       "extent": {
         "signal": "[[8,38],[mapWidth-8,mapHeight+28]]"
@@ -296,19 +336,46 @@
       }
     },
     {
-      "name": "basemap",
+      "name": "oceanLayer",
       "type": "shape",
       "from": {
-        "data": "world"
+        "data": "ocean"
       },
       "aria": false,
       "encode": {
         "update": {
           "fill": {
-            "value": "#e6ebe3"
+            "value": "#dfedf3"
           },
           "stroke": {
-            "value": "#f8f6ef"
+            "value": "#b6cdd7"
+          },
+          "strokeWidth": {
+            "value": 0.8
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "worldProjection"
+        }
+      ]
+    },
+    {
+      "name": "graticuleLayer",
+      "type": "shape",
+      "from": {
+        "data": "graticule"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "fill": {
+            "value": null
+          },
+          "stroke": {
+            "value": "#bdcfd7"
           },
           "strokeWidth": {
             "value": 0.6
@@ -323,10 +390,70 @@
       ]
     },
     {
+      "name": "basemap",
+      "type": "shape",
+      "from": {
+        "data": "world"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "fill": {
+            "value": "#f1f0e6"
+          },
+          "stroke": {
+            "value": "#b7c1bb"
+          },
+          "strokeWidth": {
+            "value": 0.6
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "worldProjection"
+        }
+      ]
+    },
+    {
+      "name": "selectionTrace",
+      "type": "path",
+      "from": {
+        "data": "selectionGuide"
+      },
+      "aria": false,
+      "encode": {
+        "update": {
+          "path": {
+            "field": "curve"
+          },
+          "stroke": {
+            "value": "#172f39"
+          },
+          "strokeWidth": {
+            "value": 1.5
+          },
+          "strokeDash": {
+            "value": [
+              4,
+              4
+            ]
+          },
+          "fill": {
+            "value": null
+          },
+          "tooltip": {
+            "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325','Edible exports (A$m)':format(datum.value_m,',.1f')}"
+          }
+        }
+      }
+    },
+    {
       "name": "flows",
       "type": "path",
       "from": {
-        "data": "partners"
+        "data": "routes"
       },
       "encode": {
         "update": {
@@ -334,14 +461,14 @@
             "field": "curve"
           },
           "stroke": {
-            "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+            "signal": "datum.partner === partnerFocus ? '#172f39' : '#526b78'"
           },
           "strokeWidth": {
             "scale": "flowWidth",
             "field": "value_m"
           },
           "strokeOpacity": {
-            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.8 : 0.07"
+            "value": 0.8
           },
           "fill": {
             "value": null
@@ -359,7 +486,7 @@
       "name": "arrows",
       "type": "symbol",
       "from": {
-        "data": "partners"
+        "data": "routes"
       },
       "aria": false,
       "encode": {
@@ -380,20 +507,20 @@
             "signal": "pow(max(7,scale('flowWidth',datum.value_m)*1.8),2)"
           },
           "fill": {
-            "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+            "signal": "datum.partner === partnerFocus ? '#172f39' : '#526b78'"
           },
           "opacity": {
-            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.9 : 0.07"
+            "value": 0.9
           }
         }
       }
     },
     {
       "name": "destinations",
-      "description": "Destination anchors; select or hover for the edible export value",
+      "description": "Destination anchors; hover for the edible export value",
       "type": "symbol",
       "from": {
-        "data": "partners"
+        "data": "routes"
       },
       "encode": {
         "update": {
@@ -407,10 +534,10 @@
             "value": 22
           },
           "fill": {
-            "signal": "datum.partner === partnerFocus ? '#a84729' : '#183b46'"
+            "signal": "datum.partner === partnerFocus ? '#172f39' : '#183b46'"
           },
           "opacity": {
-            "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 1 : 0.16"
+            "value": 1
           },
           "tooltip": {
             "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325','Edible exports (A$m)':format(datum.value_m,',.1f')}"
@@ -467,7 +594,7 @@
             "value": "#183b46"
           },
           "fontSize": {
-            "value": 12
+            "value": 13
           },
           "fontWeight": {
             "value": "bold"
@@ -497,7 +624,7 @@
             "signal": "datum.tx>mapWidth*0.7 ? 'right' : 'left'"
           },
           "fontSize": {
-            "value": 12
+            "value": 13
           },
           "fontWeight": {
             "value": "bold"
@@ -506,7 +633,7 @@
             "value": "#183b46"
           },
           "limit": {
-            "signal": "min(150,mapWidth-16)"
+            "signal": "min(170,mapWidth-16)"
           }
         }
       }
@@ -529,7 +656,7 @@
             "value": "#183b46"
           },
           "fontSize": {
-            "value": 12
+            "value": 13
           },
           "fontWeight": {
             "value": "bold"
@@ -557,7 +684,7 @@
             "signal": "mapHeight+88"
           },
           "stroke": {
-            "value": "#087f83"
+            "value": "#526b78"
           },
           "strokeWidth": {
             "scale": "flowWidth",
@@ -585,7 +712,7 @@
             "signal": "format(datum.value_m,',.0f')"
           },
           "fontSize": {
-            "value": 12
+            "value": 13
           },
           "fill": {
             "value": "#52666b"
@@ -625,13 +752,13 @@
                 "value": 0
               },
               "text": {
-                "value": "Compare the values"
+                "value": "Compare all 11 destinations"
               },
               "fill": {
                 "value": "#183b46"
               },
               "fontSize": {
-                "value": 13
+                "value": 14
               },
               "fontWeight": {
                 "value": "bold"
@@ -657,7 +784,7 @@
                 "value": "#52666b"
               },
               "fontSize": {
-                "value": 12
+                "value": 13
               }
             }
           }
@@ -680,7 +807,7 @@
                 "value": "#52666b"
               },
               "fontSize": {
-                "value": 11
+                "value": 13
               }
             }
           }
@@ -703,7 +830,7 @@
                 "value": "#52666b"
               },
               "fontSize": {
-                "value": 11
+                "value": 13
               },
               "align": {
                 "value": "right"
@@ -733,6 +860,36 @@
           }
         },
         {
+          "name": "keyRows",
+          "type": "rect",
+          "from": {
+            "data": "partners"
+          },
+          "aria": false,
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "width": {
+                "signal": "keyWidth"
+              },
+              "y": {
+                "signal": "38+scale('rows',datum.partner)"
+              },
+              "height": {
+                "signal": "bandwidth('rows')"
+              },
+              "fill": {
+                "value": "transparent"
+              },
+              "tooltip": {
+                "signal": "{'Destination':datum.partner,'Financial year':'2024\u201325','Edible exports (A$m)':format(datum.value_m,',.1f')}"
+              }
+            }
+          }
+        },
+        {
           "name": "valueBars",
           "description": "Ranked edible export values for the same eleven destinations, measured from zero",
           "type": "rect",
@@ -754,7 +911,7 @@
                 "signal": "bandwidth('rows')"
               },
               "fill": {
-                "signal": "datum.partner === partnerFocus ? '#a84729' : '#087f83'"
+                "signal": "datum.partner === partnerFocus ? '#172f39' : '#526b78'"
               },
               "opacity": {
                 "signal": "partnerFocus === 'All selected partners' || datum.partner === partnerFocus ? 0.9 : 0.2"
@@ -786,7 +943,7 @@
                 "field": "partner"
               },
               "fontSize": {
-                "value": 12
+                "value": 13
               },
               "fill": {
                 "value": "#183b46"
@@ -821,7 +978,7 @@
                 "signal": "format(datum.value_m,',.1f')"
               },
               "fontSize": {
-                "value": 12
+                "value": 13
               },
               "fill": {
                 "value": "#183b46"

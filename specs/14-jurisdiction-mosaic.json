@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -66,7 +66,7 @@
           "scale": {
             "domain": [
               0,
-              1.1
+              1.22
             ]
           }
         },
@@ -123,14 +123,20 @@
       "transform": [
         {
           "filter": "datum.sector === 'Aquaculture'"
+        },
+        {
+          "calculate": "datum.group === 'Other three jurisdictions' ? 'Other states\\nand territories' : replace(datum.group, ' Australia', '\\nAustralia')",
+          "as": "place_label"
         }
       ],
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 13,
         "fontWeight": "bold",
         "color": "#183b46",
-        "baseline": "top"
+        "baseline": "top",
+        "lineBreak": "\n",
+        "lineHeight": 16
       },
       "encoding": {
         "x": {
@@ -148,7 +154,7 @@
           "value": 5
         },
         "text": {
-          "field": "abbrev",
+          "field": "place_label",
           "type": "nominal"
         }
       }

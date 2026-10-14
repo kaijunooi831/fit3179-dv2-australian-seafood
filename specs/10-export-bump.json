@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -51,7 +51,7 @@
         "range": [
           0,
           {
-            "expr": "max(80, width - 82)"
+            "expr": "max(80, width - 108)"
           }
         ]
       },
@@ -83,18 +83,18 @@
           "Other Finfish nei"
         ],
         "range": [
-          "#365d69",
-          "#087f83",
-          "#a84729",
-          "#426d63",
-          "#805915"
+          "#265d9b",
+          "#7356a1",
+          "#8f6a12",
+          "#aa4373",
+          "#575077"
         ]
       },
       "legend": null
     },
     "tooltip": [
       {
-        "field": "commodity",
+        "field": "product_name",
         "type": "nominal",
         "title": "Product group"
       },
@@ -145,7 +145,7 @@
         "type": "text",
         "align": "left",
         "dx": 7,
-        "fontSize": 11,
+        "fontSize": 13,
         "fontWeight": "bold"
       },
       "encoding": {
@@ -188,13 +188,13 @@
         "type": "point",
         "filled": true,
         "fill": "#f8f6ef",
-        "stroke": "#365d69",
+        "stroke": "#265d9b",
         "strokeWidth": 2,
         "size": 85
       },
       "encoding": {
         "color": {
-          "value": "#365d69"
+          "value": "#265d9b"
         }
       }
     },
@@ -209,7 +209,7 @@
         "type": "text",
         "align": "right",
         "dy": -69,
-        "fontSize": 11,
+        "fontSize": 13,
         "fontWeight": 600
       },
       "encoding": {
@@ -234,8 +234,8 @@
         "align": "right",
         "dy": -53,
         "lineBreak": "\n",
-        "lineHeight": 13,
-        "fontSize": 11
+        "lineHeight": 16,
+        "fontSize": 13
       },
       "encoding": {
         "text": {
@@ -253,5 +253,11 @@
     "bottom": 5,
     "left": 5
   },
-  "description": "Rock lobster has regained the top export rank"
+  "description": "Rock lobster has regained the top export rank",
+  "transform": [
+    {
+      "calculate": "datum.commodity === 'Other Finfish nei' ? 'Other finfish, not elsewhere included' : datum.commodity",
+      "as": "product_name"
+    }
+  ]
 }

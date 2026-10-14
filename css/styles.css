@@ -51,7 +51,7 @@ a {
 }
 a:hover { color: var(--ink); text-decoration-thickness: 2px; }
 a:focus-visible, button:focus-visible, select:focus-visible,
-summary:focus-visible, [tabindex]:focus-visible {
+summary:focus-visible, .chart-controls input:focus-visible, [tabindex]:focus-visible {
   outline: 3px solid var(--aqua);
   outline-offset: 4px;
 }
@@ -76,7 +76,7 @@ h2 { font-size: clamp(2.2rem, 4.1vw, 3.4rem); line-height: 1.16; margin: 0 0 22p
 .story-nav a:focus-visible { outline-offset: -3px; }
 h1 { font-size: clamp(3.6rem, 7vw, 5.2rem); line-height: 1.1; margin: 0 0 22px; }
 h1 em { color: var(--link); font-weight: 450; }
-.dek { font-size: 1.2rem; line-height: 1.65; margin: 0; }
+.dek { font-size: 1.125rem; line-height: 1.65; margin: 0; }
 .dek strong { font-weight: 600; }
 .intro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; padding: 60px 0 48px; font-size: .9rem; border-bottom: 1px solid var(--line); }
 .intro p { margin: 0; }
@@ -95,7 +95,7 @@ h1 em { color: var(--link); font-weight: 450; }
 .chapter-head strong { color: var(--ink); }
 .chart-block { min-width: 0; padding: 26px 0 22px; margin: 0 0 24px; border-top: 1px solid var(--line); }
 .chart-block h3 { font-size: 1.15rem; letter-spacing: -.015em; line-height: 1.4; margin: 0 0 12px; color: var(--ink); font-weight: 650; text-wrap: balance; max-width: 65ch; }
-.chart-note { font-size: .88rem; line-height: 1.65; margin: 0 0 24px; color: var(--muted); }
+.chart-note { font-size: .91rem; line-height: 1.7; margin: 0 0 24px; color: var(--muted); }
 .chart-reading { font-size: .91rem; line-height: 1.7; margin: 22px 0 0; color: var(--text); }
 .chart-reading strong { color: var(--ink); font-weight: 650; }
 .source { font-size: .8125rem; color: var(--muted); line-height: 1.6; margin: 16px 0 0; }
@@ -110,20 +110,28 @@ h1 em { color: var(--link); font-weight: 450; }
   .chart-pair { row-gap: 0; }
   .chart-pair > .chart-block { display: grid; grid-template-rows: subgrid; grid-row: span 5; align-content: start; }
 }
-.split-story { display: grid; grid-template-columns: minmax(230px, .75fr) minmax(0, 1.7fr); gap: 64px; margin-top: 36px; align-items: start; }
+.split-story { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 36px; align-items: start; }
 .aside-copy { padding-top: 26px; }
 .aside-copy h3 { font-size: 1.9rem; line-height: 1.28; margin: 0 0 20px; }
 .aside-copy p { font-size: .9rem; }
-.section-caveat { border-top: 1px solid var(--line); padding: 20px 0 0; font-size: .88rem; margin: 0 0 18px; }
+.aside-copy .source { font-size: .8125rem; }
+.chart-context { margin-top: 22px; }
+.section-caveat { font-size: .88rem; margin: 0; }
 /* The hundred-cell waffle has a square plotting area at every screen width. */
 .vis.waffle { max-width: 320px; min-height: 0; aspect-ratio: 1; }
 .waffle-figure { align-self: start; min-width: 0; }
 .chart-key { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 12px 0 0; font-size: .8125rem; color: var(--ink); }
 .chart-key span { display: inline-flex; align-items: center; gap: 6px; }
 .chart-key i { width: 10px; height: 10px; display: inline-block; }
-.key-lobster { background: #365d69; }
-.key-salmon { background: var(--aqua); }
-.key-tuna { background: #a84729; }
+.chart-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; border: 0; padding: 0; margin: 0 0 32px; font-size: .88rem; }
+.chart-controls legend { padding: 0; margin-bottom: 12px; color: var(--ink); font-weight: 650; }
+.chart-controls output { display: inline-block; width: 5em; white-space: nowrap; font-weight: 650; }
+.chart-controls input[type="range"] { width: 280px; max-width: 100%; min-height: 44px; accent-color: var(--aqua); }
+.chart-controls button { font: inherit; min-height: 38px; padding: 6px 12px; border: 1px solid var(--control-line); border-radius: var(--control-radius); color: var(--ink); background: var(--paper); }
+.chart-controls button:hover { border-color: var(--ink); }
+.key-lobster { background: #265d9b; }
+.key-salmon { background: #7356a1; }
+.key-tuna { background: #8f6a12; }
 .key-other { background: #d9dfd6; }
 .takeaway { margin: 32px 0 0; padding: 36px 40px; background: var(--surface); border-top: 2px solid #9db7aa; }
 .takeaway h2 { font-size: clamp(2rem, 3.3vw, 2.8rem); }
@@ -131,7 +139,7 @@ h1 em { color: var(--link); font-weight: 450; }
 .methods { padding: 56px 0; color: var(--muted); font-size: .88rem; }
 .methods h2 { font-size: 2.3rem; }
 .methods h3 { color: var(--ink); font-size: 1rem; }
-.methods .grid { gap: 50px; }
+.methods .grid { gap: 40px; }
 .runtime-status { font-size: .78rem; margin-top: 28px; }
 .runtime-status:empty { display: none; }
 footer { border-top: 1px solid var(--line); padding: 24px 0; background: var(--surface); font-size: .8rem; color: var(--muted); }
@@ -152,15 +160,16 @@ footer p + p { margin-top: 6px; }
   opacity: .55;
 }
 .vega-embed, .vega-embed > div { width: 100%; max-width: 100%; }
-.vega-bindings { font-size: .82rem; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; }
+.vega-bindings { font-size: .82rem; margin-bottom: 20px; padding-top: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+#vis04 .vega-bindings { margin: 16px 0 0; }
 .vega-bindings label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; max-width: 100%; }
 .vega-bind-name { font-weight: 550; color: var(--ink); }
 .vega-bindings select {
   appearance: none;
   -webkit-appearance: none;
   font: inherit;
-  min-height: 44px;
-  padding: 8px 40px 8px 12px;
+  min-height: 38px;
+  padding: 6px 40px 6px 12px;
   max-width: 100%;
   border: 1px solid var(--control-line);
   border-radius: var(--control-radius);
@@ -172,9 +181,11 @@ footer p + p { margin-top: 6px; }
   color: var(--ink);
   transition: border-color var(--interaction-time) ease, background-color var(--interaction-time) ease;
 }
-.vega-bindings select:hover { border-color: var(--aqua); background-color: var(--surface); }
-.vega-bindings select:active { background-color: #dce8dc; }
-.vega-bindings select:focus-visible { outline: 2px solid var(--aqua); outline-offset: -2px; border-color: var(--aqua); }
+.vega-bindings select option { background-color: var(--paper); color: var(--ink); }
+.vega-bindings select:hover { border-color: var(--ink); }
+.vega-bindings select:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; border-color: var(--ink); }
+/* Contain Vega's menu layer beneath the sticky chapter navigation. */
+.vis.vega-embed { isolation: isolate; }
 .vis.vega-embed summary { top: -32px; }
 .vis.vega-embed summary:focus-visible { outline-offset: 0; }
 .vis.vega-embed .vega-actions { top: 3px; }
@@ -182,18 +193,20 @@ footer p + p { margin-top: 6px; }
 body #vg-tooltip-element { font-family: Geist, sans-serif; font-size: 14px; line-height: 1.45; color: var(--ink); background: var(--paper); max-width: min(360px, calc(100vw - 24px)); padding: 10px 12px; }
 body #vg-tooltip-element table tr td.key { color: var(--muted); text-align: left; padding-right: 12px; }
 body #vg-tooltip-element table tr td.value { color: var(--ink); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
-/* Wide figures pair interpretation with provenance; reading order stays intact. */
+/* Guides and findings balance each other; charts receive the full reading width. */
 @media (min-width: 1001px) {
-  .chapter > .chart-block {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 40px;
-  }
-  .chapter > .chart-block > h3,
-  .chapter > .chart-block > .chart-note,
-  .chapter > .chart-block > .vis { grid-column: 1 / -1; }
-  .chapter > .chart-block > .chart-reading { grid-column: 1; grid-row: 4; align-self: start; }
-  .chapter > .chart-block > .source { grid-column: 2; grid-row: 4; margin-top: 22px; }
+  .chapter > .chart-block { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+  .chapter > .chart-block > h3 { grid-column: 1 / -1; grid-row: 1; }
+  .chapter > .chart-block > .chart-note { grid-column: 1; grid-row: 2; }
+  .chapter > .chart-block > .chart-reading { grid-column: 2; grid-row: 2; margin: 0 0 24px; align-self: start; }
+  .chapter > .chart-block > .vis { grid-column: 1 / -1; grid-row: 3; }
+  .chapter > .chart-block > .source { grid-column: 1 / -1; grid-row: 4; }
+  .chapter > .finding-first > .chart-reading { grid-column: 1; }
+  .chapter > .finding-first > .chart-note { grid-column: 2; }
+  /* The mosaic has a substantive scope note, so keep its paired captions below. */
+  .chapter > .mosaic-block > .chart-note { grid-column: 1 / -1; }
+  .chapter > .mosaic-block > .chart-reading { grid-column: 1; grid-row: 4; margin-top: 22px; }
+  .chapter > .mosaic-block > .chart-context { grid-column: 2; grid-row: 4; margin-top: 22px; }
 }
 @media (max-width: 1000px) {
   .shell { width: calc(100% - 48px); }

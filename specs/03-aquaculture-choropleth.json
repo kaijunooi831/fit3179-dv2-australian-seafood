@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 400,
+  "height": 480,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -57,15 +57,26 @@
       -27
     ]
   },
+  "params": [
+    {
+      "name": "mapYear",
+      "value": 2025
+    }
+  ],
   "transform": [
     {
-      "lookup": "properties.state",
+      "calculate": "datum.properties.state+'|'+mapYear",
+      "as": "state_year"
+    },
+    {
+      "lookup": "state_year",
       "from": {
         "data": {
-          "url": "data/state_map.csv"
+          "url": "data/state_map_series.csv"
         },
-        "key": "state",
+        "key": "state_year",
         "fields": [
+          "year",
           "aquaculture_share",
           "aquaculture_m",
           "wild_m",
@@ -143,6 +154,11 @@
             "title": "State or territory"
           },
           {
+            "field": "year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
             "field": "aquaculture_share",
             "type": "quantitative",
             "title": "Share from farming",
@@ -170,20 +186,61 @@
     },
     {
       "data": {
-        "url": "data/state_map.csv"
+        "url": "data/state_map_series.csv"
       },
       "transform": [
         {
-          "calculate": "datum.abbrev === 'TAS' ? 'TAS '+format(datum.aquaculture_share, '.1%') : datum.abbrev",
+          "filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#52666b",
+        "strokeWidth": 1,
+        "x2Offset": 30,
+        "y2Offset": 15
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "longitude"
+        },
+        "latitude2": {
+          "field": "latitude"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_map_series.csv"
+      },
+      "transform": [
+        {
+          "filter": "toNumber(datum.year_end) === mapYear"
+        },
+        {
+          "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
           "as": "map_label"
         }
       ],
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 13,
         "fontWeight": "bold",
+        "lineBreak": "\n",
+        "lineHeight": 15,
         "dy": {
-          "expr": "datum.abbrev === 'TAS' ? 18 : 0"
+          "expr": "datum.state === 'Tasmania' ? 28 : datum.state === 'Victoria' ? 22 : datum.state === 'Queensland' ? -12 : -4"
+        },
+        "dx": {
+          "expr": "datum.state === 'Queensland' ? 15 : datum.state === 'Northern Territory' ? -9 : datum.state === 'South Australia' ? -8 : datum.state === 'New South Wales' ? 12 : datum.state === 'Victoria' ? 42 : 0"
         }
       },
       "encoding": {
@@ -201,7 +258,7 @@
         },
         "color": {
           "condition": {
-            "test": "datum.abbrev !== 'TAS' && datum.aquaculture_share > 0.65",
+            "test": "datum.state !== 'Tasmania' && datum.aquaculture_share > 0.65",
             "value": "white"
           },
           "value": "#183b46"
@@ -209,5 +266,5 @@
       }
     }
   ],
-  "description": "Tasmania\u2019s production value is overwhelmingly farmed"
+  "description": "Farming\u2019s share across seven places in the selected year"
 }

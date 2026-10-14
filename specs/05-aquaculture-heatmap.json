@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -49,20 +49,34 @@
       "title": null,
       "axis": {
         "labelAngle": -45,
-        "labelFontSize": 11
+        "labelFontSize": 13
       }
     },
     "y": {
       "field": "species",
       "type": "nominal",
       "title": null,
-      "sort": {
-        "field": "value_m",
-        "op": "sum",
-        "order": "descending"
-      },
+      "sort": [
+        "Salmonids",
+        "Prawns",
+        "Oysters",
+        "Tunas",
+        "Barramundi",
+        "Pearls",
+        "Other Finfish",
+        "Other nei",
+        "Abalone",
+        "Other Molluscs",
+        "Blue Mussel",
+        "Silver Perch",
+        "Marron",
+        "Redclaw",
+        "Yabbies",
+        "Other Crustaceans"
+      ],
       "axis": {
-        "labelLimit": 130
+        "labelLimit": 180,
+        "labelExpr": "datum.label === 'Other nei' ? 'Other products' : datum.label"
       }
     },
     "color": {
@@ -70,10 +84,9 @@
       "type": "quantitative",
       "title": "Share of aquaculture value",
       "scale": {
-        "domain": [
-          0,
-          0.7
-        ],
+        "domain": {
+          "expr": "groupView === 'All groups (0\u201370%)' ? [0,0.7] : [0,0.1]"
+        },
         "range": [
           "#eaf1e9",
           "#086d75"
@@ -81,15 +94,18 @@
       },
       "legend": {
         "format": ".0%",
-        "gradientLength": {
-          "expr": "min(170, max(90, width - 8))"
+        "gradientLength": 240,
+        "title": "Share of all farmed value",
+        "values": {
+          "expr": "groupView === 'All groups (0\u201370%)' ? [0,0.35,0.7] : [0,0.05,0.1]"
         }
       }
     },
     "tooltip": [
       {
-        "field": "species",
-        "type": "nominal"
+        "field": "product_name",
+        "type": "nominal",
+        "title": "Product group"
       },
       {
         "field": "year",
@@ -109,5 +125,28 @@
       }
     ]
   },
+  "params": [
+    {
+      "name": "groupView",
+      "value": "All groups (0\u201370%)",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All groups (0\u201370%)",
+          "Explore smaller groups \u00b7 0\u201310%"
+        ],
+        "name": "Compare: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "groupView === 'All groups (0\u201370%)' || datum.species !== 'Salmonids'"
+    },
+    {
+      "calculate": "datum.species === 'Other nei' ? 'Other products' : datum.species",
+      "as": "product_name"
+    }
+  ],
   "description": "Salmonids dominate farmed value across the decade"
 }

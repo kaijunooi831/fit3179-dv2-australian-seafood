@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 400,
+  "height": 480,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -51,6 +51,10 @@
     ]
   },
   "params": [
+    {
+      "name": "mapYear",
+      "value": 2025
+    },
     {
       "name": "mapSector",
       "value": "Combined",
@@ -83,9 +87,12 @@
     },
     {
       "data": {
-        "url": "data/state_map.csv"
+        "url": "data/state_map_series.csv"
       },
       "transform": [
+        {
+          "filter": "toNumber(datum.year_end) === mapYear"
+        },
         {
           "calculate": "mapSector === 'Aquaculture' ? datum.aquaculture_m : mapSector === 'Wild catch' ? datum.wild_m : datum.total_m",
           "as": "shown"
@@ -114,7 +121,7 @@
           "scale": {
             "domain": [
               0,
-              1500
+              2000
             ],
             "range": [
               0,
@@ -126,7 +133,7 @@
             "values": [
               100,
               500,
-              1500
+              2000
             ],
             "symbolLimit": 3,
             "columns": {
@@ -141,6 +148,11 @@
             "type": "nominal"
           },
           {
+            "field": "year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
             "field": "shown",
             "type": "quantitative",
             "title": "Production value (A$m)",
@@ -151,14 +163,54 @@
     },
     {
       "data": {
-        "url": "data/state_map.csv"
+        "url": "data/state_map_series.csv"
+      },
+      "transform": [
+        {
+          "filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#52666b",
+        "strokeWidth": 1,
+        "x2Offset": 30,
+        "y2Offset": 15
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "longitude"
+        },
+        "latitude2": {
+          "field": "latitude"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_map_series.csv"
       },
       "mark": {
         "type": "text",
-        "dy": -4,
-        "fontSize": 11,
+        "dy": {
+          "expr": "datum.state === 'Tasmania' ? 42 : datum.state === 'Victoria' ? 22 : datum.state === 'Queensland' ? -12 : -4"
+        },
+        "fontSize": 13,
         "fontWeight": "bold",
-        "color": "#142d34"
+        "color": "#142d34",
+        "lineBreak": "\n",
+        "lineHeight": 15,
+        "dx": {
+          "expr": "datum.state === 'Queensland' ? 15 : datum.state === 'Northern Territory' ? -9 : datum.state === 'South Australia' ? -8 : datum.state === 'New South Wales' ? 12 : datum.state === 'Victoria' ? 42 : 0"
+        }
       },
       "encoding": {
         "longitude": {
@@ -170,11 +222,20 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "abbrev",
+          "field": "map_label",
           "type": "nominal"
         }
-      }
+      },
+      "transform": [
+        {
+          "filter": "toNumber(datum.year_end) === mapYear"
+        },
+        {
+          "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
+          "as": "map_label"
+        }
+      ]
     }
   ],
-  "description": "The largest production values are concentrated in Tasmania and the west"
+  "description": "Production value across seven places in the selected year"
 }

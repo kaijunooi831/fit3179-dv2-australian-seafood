@@ -13,8 +13,8 @@
     },
     "font": "Geist",
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "titleFontWeight": "normal",
       "labelColor": "#52666b",
       "titleColor": "#52666b",
@@ -26,8 +26,8 @@
     },
     "legend": {
       "orient": "bottom",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 13,
+      "titleFontSize": 13,
       "labelLimit": 220,
       "columns": 2,
       "symbolSize": 90,
@@ -37,27 +37,9 @@
   "data": {
     "url": "data/sector_real.csv"
   },
-  "params": [
-    {
-      "name": "basis",
-      "value": "2024\u201325 dollars",
-      "bind": {
-        "input": "select",
-        "options": [
-          "2024\u201325 dollars",
-          "Current dollars"
-        ],
-        "name": "Show values in: "
-      }
-    }
-  ],
   "transform": [
     {
       "filter": "datum.sector !== 'Adjusted national'"
-    },
-    {
-      "calculate": "basis === 'Current dollars' ? datum.nominal_m : datum.real_m",
-      "as": "shown"
     }
   ],
   "encoding": {
@@ -74,7 +56,7 @@
         "range": [
           0,
           {
-            "expr": "max(80, width - 82)"
+            "expr": "max(80, width - 108)"
           }
         ]
       },
@@ -88,14 +70,12 @@
       }
     },
     "y": {
-      "field": "shown",
+      "field": "real_m",
       "type": "quantitative",
-      "title": "Production value (A$ million)",
+      "title": "Production value (A$m, 2024\u201325 dollars)",
       "scale": {
         "zero": true,
-        "domainMax": {
-          "expr": "basis === 'Current dollars' ? 3100 : 4500"
-        }
+        "domainMax": 4500
       }
     },
     "color": {
@@ -124,15 +104,9 @@
         "type": "nominal"
       },
       {
-        "field": "shown",
+        "field": "real_m",
         "type": "quantitative",
-        "title": "Shown value (A$m)",
-        "format": ",.1f"
-      },
-      {
-        "field": "nominal_m",
-        "type": "quantitative",
-        "title": "Current dollars (A$m)",
+        "title": "Value (2024\u201325 A$m)",
         "format": ",.1f"
       }
     ]
@@ -187,7 +161,7 @@
       },
       "encoding": {
         "y2": {
-          "field": "shown"
+          "field": "real_m"
         },
         "color": {
           "value": "#52666b"
@@ -221,7 +195,7 @@
           "filter": "toNumber(datum.year_end) === 2025"
         },
         {
-          "calculate": "(datum.sector === 'Aquaculture' ? 'Farmed' : 'Wild catch')+'\\nA$'+format(datum.shown,',.0f')+'m'",
+          "calculate": "(datum.sector === 'Aquaculture' ? 'Farmed' : 'Wild catch')+'\\nA$'+format(datum.real_m,',.0f')+'m'",
           "as": "endpoint_label"
         }
       ],
@@ -231,8 +205,8 @@
         "dx": 8,
         "dy": -7,
         "lineBreak": "\n",
-        "lineHeight": 14,
-        "fontSize": 11,
+        "lineHeight": 16,
+        "fontSize": 13,
         "fontWeight": 600
       },
       "encoding": {
@@ -255,7 +229,7 @@
           "expr": "width < 400 ? 'right' : 'center'"
         },
         "dy": -73,
-        "fontSize": 11,
+        "fontSize": 13,
         "fontWeight": 600
       },
       "encoding": {
@@ -282,8 +256,8 @@
         },
         "dy": -57,
         "lineBreak": "\n",
-        "lineHeight": 13,
-        "fontSize": 11
+        "lineHeight": 16,
+        "fontSize": 13
       },
       "encoding": {
         "text": {
