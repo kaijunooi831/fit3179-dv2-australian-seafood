@@ -1,83 +1,252 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="See how farmed and wild-caught seafood changed across Australia, which places produce the most value, and where exports go.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Australia’s seafood shift">
-  <meta property="og:description" content="How seafood farming changed Australia, from states and territories to export connections with Malaysia.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Australia’s seafood shift</title>
-  <link rel="preload" href="fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/SourceSerif4.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=20261007nav3">
-  <script defer src="vendor/vega.min.js"></script>
-  <script defer src="vendor/vega-lite.min.js"></script>
-  <script defer src="vendor/vega-embed.min.js"></script>
-  <script defer src="js/main.js?v=20261007nav"></script>
-</head>
-<body>
-<a class="skip-link" href="#change">Skip to the story</a>
-<noscript><p class="runtime-notice">JavaScript is required for the charts. The written findings and methods remain available below.</p></noscript>
-<nav class="story-nav" aria-label="Story chapters"><div class="shell nav-inner"><a href="#change">The shift</a><a href="#places">The places</a><a href="#species">The species</a><a href="#markets">The markets</a></div></nav>
-<header class="hero">
-  <div class="shell">
-    <h1>Australia’s seafood <em>shift</em></h1>
-    <p class="dek"><strong>Farming reshaped Australia’s seafood industry.</strong> See how farming and wild catch changed, which parts of Australia produce the most value, and where exports go, including Malaysia.</p>
-  </div>
-</header>
-<main>
-<section class="intro shell" aria-label="How to read this story">
-  <aside class="data-context" aria-labelledby="data-context-title">
-  <h2 id="data-context-title">2024–25 at a glance</h2>
-  <dl class="production-facts">
-    <div class="kpi-card"><dt>Production value</dt><dd aria-label="3.72 billion Australian dollars">A$3.72<span>bn</span></dd></div>
-    <div class="kpi-card"><dt>Tonnes produced</dt> <dd>295,838</dd></div>
-    <div class="kpi-card"><dt>Export value</dt><dd aria-label="1.48 billion Australian dollars">A$1.48<span>bn</span></dd></div>
-    <div class="kpi-card"><dt>Exports from the top 3 groups</dt><dd aria-label="75.4 percent">75.4<span>%</span></dd></div>
-  </dl>
-</aside>
-  <div class="reading-key"><p><strong>New to this topic?</strong> Aquaculture means farming fish and other aquatic products; wild catch comes from natural waters. A state or territory is a part of Australia, such as Tasmania or Western Australia. Production value is what output is worth when it leaves a farm or fishing boat, not its shop price or profit.</p></div>
-  <div class="reading-key"><p><strong>Reading the numbers.</strong> A$ means Australian dollars; A$m means millions of Australian dollars, and “bn” means billion. A tonne is 1,000 kilograms. A 2024–25 financial year runs from July 2024 to June 2025.</p></div>
-</section>
-<section id="change" class="chapter shell">
-  <div class="chapter-head"><div><h2>Farmed value grew.<br>Wild-catch value shrank.</h2><p>In 2024–25 dollars, aquaculture value grew <strong>67.6%</strong> between 1998–99 and 2024–25. Wild-catch value fell <strong>48.7%</strong>.</p></div></div>
-  <article class="chart-block finding-first"><h3>Farmed and wild production took different paths</h3><p class="chart-reading"><strong>Farmed value first overtook wild catch in 2019–20 within this series.</strong> The Australia-wide total, adjusted so tuna is not counted twice, was <strong>14.7% lower</strong> than in 1998–99 after inflation. Over the latest decade, however, it rose <strong>2.5%</strong>.</p><p class="chart-note">Values are adjusted for inflation to <b>2024–25 dollars</b>. This accounts for general price rises, making years easier to compare. The national total removes tuna counted in both sectors, so it is not their sum.</p><div id="vis01" class="vis" aria-label="Time series comparing farmed and wild-catch production value adjusted for inflation to 2024–25 dollars"></div><p class="source">ABARES Table 1; ABS inflation data.</p></article>
-  <div class="split-story"><div class="aside-copy"><h3>Not every state or territory moved toward farming.</h3><p>Farming share is farmed value as a percentage of farmed plus locally managed wild-catch value.</p><p>Choose a place to highlight it; lines show endpoints only. Seven places have reported values; the Australian Capital Territory has none.</p><p class="chart-reading"><strong>Tasmania made the clearest shift toward farming.</strong> Its share rose from <b>33.5% to 91.4%</b>, while Western Australia fell from <b>31.7% to 18.9%</b>. A rising share does not necessarily mean more total production.</p><p class="source">ABARES Table 1.</p></div><article class="chart-block"><h3>Aquaculture’s share, then and now</h3><div id="vis02" class="vis" aria-label="Seven states and territories compared by farming share in 1998–99 and 2024–25"></div></article></div>
-
-  <article class="chart-block finding-first"><h3>How did farming shares vary across places?</h3><p class="chart-reading"><strong>The middle farming share rose, but places remain very different.</strong> Across the seven states and territories, it increased from <strong>32.4% in 1998–99 to 52.6% in 2024–25</strong>. The latest shares range from 18.9% to 91.4%; these boxes do not show Australia’s total production.</p><p class="chart-note">Each dot represents one of seven places, counted equally. Boxes show the middle half; the centre line marks the median (middle value), labelled below each year. Whiskers show the minimum and maximum. Highlight a place to follow its dots; boxes always include all seven.</p><div id="vis13" class="vis" aria-label="Box plots and seven dots per year showing farming shares across states and territories in four years"></div><p class="source">ABARES Table 1.</p></article>
-</section>
-<section id="places" class="chapter shell">
-  <div class="chapter-head"><div><h2>Tasmania leads farmed value.<br>Western Australia leads wild catch.</h2><p>In 2024–25, Tasmania, the island south of mainland Australia, produced <strong>A$1.29 billion</strong> in farmed value. Western Australia produced <strong>A$503.2 million</strong> from wild catch managed by the state, the largest such value.</p></div></div>
-  <fieldset id="map-controls" class="chart-controls" disabled>
-    <legend>Compare both maps in the same year</legend>
-    <label for="map-year">Financial year: <output id="map-year-label" for="map-year">2024–25</output></label>
-    <input id="map-year" type="range" min="1999" max="2025" step="1" value="2025" aria-valuetext="2024–25">
-    <button id="map-latest" type="button">Latest year</button>
-  </fieldset>
-  <div class="grid two chart-pair"><article class="chart-block"><h3>How much of local value comes from farming?</h3><p class="chart-note">Darker shading means a larger <b>percentage</b> of that state or territory’s value comes from farming, not more dollars. The Australian Capital Territory is grey because it has no reported value; grey does not mean zero.</p><div id="vis03" class="vis map" aria-label="Map shading seven Australian states and territories by farming share; ACT is grey with no reported value"></div><p class="chart-reading"><strong id="map-share-reading">In 2024–25, Tasmania has the highest farming share (91.4%).</strong> This map compares local percentages, not total dollars.</p><p class="source">ABARES Table 1.</p></article><article class="chart-block"><h3>Where is production value largest?</h3><p class="chart-note">A larger circle means more production value. Circle <b>area</b>, not width, follows the dollar amount. Choose combined, farmed or wild-catch value to compare places.</p><div id="vis04" class="vis map" aria-label="Map using circle size to show production value in seven Australian states and territories"></div><p class="chart-reading"><strong id="map-value-reading">In 2024–25, Tasmania has the largest combined value (A$1,412.2 million).</strong> Values are in each year’s dollars. The size scale stays fixed across years and production types.</p><p class="source">ABARES Table 1. Circles mark whole states.</p></article></div>
-  <article class="chart-block mosaic-block"><h3>Which places supply farmed and wild value?</h3><p class="chart-note">In 2024–25, each column is a place or group of places: wider means more combined value. Its teal and rust parts show the farming/wild-catch split. The <b>area</b> of each part represents its dollar value. “Other states and territories” groups New South Wales, Victoria and the Northern Territory.</p><div id="vis14" class="vis" aria-label="Mosaic showing both the size and farming versus wild-catch split of production value across seven states and territories"></div><p class="chart-reading"><strong>Farming and wild catch have different geographic centres.</strong> Tasmania supplies <strong>61.5%</strong> of farmed value across these seven places; Western Australia supplies <strong>40.3%</strong> of their state-managed wild-catch value.</p><div class="chart-context"><p class="section-caveat"><strong>Why isn’t all wild catch shown by state?</strong> In 2024–25, nationally managed fisheries contributed <b>A$399.3 million</b> in wild-catch value. That appears in the Australia-wide chart but not in these state comparisons.</p><p class="source">ABARES Table 1.</p></div></article>
-</section>
-<section id="species" class="chapter shell">
-  <div class="chapter-head"><div><h2>A few groups carry<br>much of the value.</h2><p>Salmonids (salmon and trout) accounted for <strong>34.0%</strong> of national industry value in 2024–25. Their importance is even greater within aquaculture, where they contributed <strong>60.3%</strong>.</p></div></div>
-  <article class="chart-block finding-first"><h3>Salmonids dominate farmed value across the decade</h3><p class="chart-reading"><strong>Salmon and trout stand apart throughout the decade.</strong> In 2024–25 they supplied 60.3% of farmed value, up from 55.1% in 2015–16; oysters supplied 8.3% and prawns 8.1%. The source also includes pearls and grouped products.</p><p class="chart-note">Each cell shows a group’s percentage of all farmed value in one year. Darker means a larger percentage. <b>Select “Explore smaller groups” to reveal differences below 10%.</b> This leaves out salmonids and changes the scale from 0–70% to 0–10%. Percentages still use <b>all farmed value</b> as their total.</p><div id="vis05" class="vis" aria-label="Grid showing each farmed species group’s percentage of aquaculture value over ten years"></div><p class="source">ABARES Table 4. “Other products” means products not listed separately in the source.</p></article>
-  <article class="chart-block finding-first"><h3>One industry, different sources of value</h3><p class="chart-reading"><strong>Salmon and trout make up about one-third of industry value.</strong> The total also includes grouped and non-food products. A large rectangle means more dollar value, not necessarily more tonnes.</p><p class="chart-note">Each rectangle’s area shows a product group’s share of the <b>A$3.72 billion</b> Australia-wide total. The frames group finfish, crustaceans and molluscs, following the source. Other products are reported separately. Hover for complete names and values.</p><div id="vis06" class="vis" aria-label="Rectangles sized by each species group’s share of Australia-wide production value"></div><p class="source">ABARES Table 2.</p></article><article class="chart-block finding-first"><h3>Tonnes and dollars tell different stories</h3><p class="chart-reading"><strong>Rock lobsters have substantial production value from relatively few tonnes:</strong> A$622.6 million from about 10,955 tonnes. Their dot sits above prawns despite lower weight. Salmonids lead both measures among the nine groups shown.</p><p class="chart-note">Each dot is one of nine named edible groups. Read its position across for production weight in tonnes and up for value in Australian dollars.</p><div id="vis07" class="vis" aria-label="Dots comparing production weight in tonnes and value in Australian dollars for nine edible species groups"></div><p class="source">ABARES Table 2.</p></article>
-  <article class="chart-block finding-first"><h3>What changed in the latest year?</h3><p class="chart-reading"><strong>Rock-lobster gains were mostly offset by falls elsewhere.</strong> Its value rose A$133.3 million, while prawns and salmonids fell A$57.3 million and A$36.0 million. The chart shows which figures changed, not why.</p><p class="chart-note">Each floating bar adds to or subtracts from the running total. The final bar shows the net rise from 2023–24 to 2024–25: <b>A$2.6 million</b>. “Other categories” pools nine source groups.</p><div id="vis08" class="vis" aria-label="Bars showing how product groups added to or subtracted from the latest change in Australia-wide production value"></div><p class="source">ABARES Tables 1–2. Values are in each year’s dollars.</p></article>
-</section>
-<section id="markets" class="chapter shell">
-  <div class="chapter-head"><div><h2>Exports are concentrated.<br>The connections reach Malaysia.</h2><p>Australian fisheries exports were worth <strong>A$1.48 billion</strong> as they left the country in 2024–25. Rock lobsters, salmonids and tunas made up <strong>75.4%</strong> of that value.</p></div></div>
-  <div class="grid two chart-pair"><article class="chart-block"><h3>Three product groups, three quarters of export value</h3><p class="chart-note">Each square represents about 1% of the value of <b>all</b> fisheries exports. Squares round to whole percentages; the key gives shares to one decimal.</p><div class="waffle-figure"><div id="vis09" class="vis waffle" aria-label="One hundred squares showing rock lobsters, salmonids, tunas and all other products as shares of export value"></div><p class="chart-key"><span><i class="key-lobster" aria-hidden="true"></i>Rock lobsters 44.0%</span><span><i class="key-salmon" aria-hidden="true"></i>Salmonids 23.1%</span><span><i class="key-tuna" aria-hidden="true"></i>Tunas 8.3%</span><span><i class="key-other" aria-hidden="true"></i>All others 24.6%</span></p></div><p class="chart-reading"><strong>Export earnings depend heavily on three groups.</strong> Rock lobsters, salmon and trout, and tunas bring in roughly three of every four export dollars. All other products share the final quarter.</p><p class="source">ABARES Table 13.</p></article><article class="chart-block"><h3>Rock lobster returns to the top rank</h3><p class="chart-note">These are the five biggest product groups in 2024–25. Follow their lines back through eleven years. Rank 1 means the highest export value; every year’s ranks include products not drawn here.</p><div id="vis10" class="vis" aria-label="Lines showing how the export-value ranks of five product groups changed over eleven years"></div><p class="chart-reading"><strong>Rock lobster regained first place in 2023–24.</strong> Salmonids led in 2021–22 and 2022–23. The lines show order, not how much money separates the ranks.</p><p class="source">ABARES Table 13.</p></article></div>
-  <article class="chart-block finding-first flow-block"><h3>Where do selected seafood exports go?</h3><p class="chart-reading"><strong>China is the largest of these reported destinations; Malaysia is smaller but visible.</strong> China received about A$658.9 million and Malaysia about A$12.2 million. The list makes small amounts easier to compare than line thickness alone.</p><p class="chart-note">These are food exports to <b>11 reported destinations</b> in 2024–25, a subset of the totals above. Thicker lines mean more value; arrows show direction. Choose a destination below to show its connection; “All selected partners” restores the overview. The bars retain all 11 destinations for comparison.</p><div id="vis12" class="vis map" aria-label="Map with arrows from Australia to eleven selected seafood export destinations, weighted by export value"></div><p class="source">ABARES Table 17. Lines show markets, <b>not shipping routes</b>.</p></article>
-  <div class="takeaway"><h2>Australia’s seafood industry<br>is more than a catch total.</h2><p>Recorded farmed production value now exceeds wild catch, with much of farmed value in Tasmania and salmon and trout. A few product groups dominate export value; the selected destination data show strong Asian links, including Malaysia. These dollar patterns do not tell us whether seafood is affordable, profitable or environmentally sustainable.</p></div>
-</section>
-<section id="methods" class="methods shell">
-  <h2>Where the numbers come from</h2>
-  <div class="grid two"><div><h3>Two data sources</h3><p><a href="https://www.agriculture.gov.au/abares/research-topics/fisheries/fisheries-and-aquaculture-statistics">ABARES Australian fisheries and aquaculture statistics</a>, September 2026 tables, supplies production and export values through 2024–25.</p><p><a href="https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/jul-2026">ABS Consumer Price Index, July 2026</a>, Table 17, supplies the inflation figures used to compare past production values in 2024–25 dollars.</p></div><div><h3>What the totals include</h3><p>ABARES calls production value gross value of production (GVP). It includes non-food products such as pearls, but excludes hatcheries. The <b>A$3.72 billion</b> Australia-wide total removes tuna counted in both wild catch and farming; it is not the sum of the two sector lines.</p></div></div>
-  <p class="source">Map outlines: <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files">ABS (ASGS 2021)</a> and <a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/">Natural Earth</a>.</p>
-  <p id="runtime-status" class="runtime-status" role="status" aria-live="polite"></p>
-</section>
-</main>
-<footer><div class="shell"><p><strong>Australian seafood industry · FIT3179 Data Visualisation 2</strong></p><p>By Ooi Kai Jun · Updated 15 October 2026.</p></div></footer>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="See how farmed and wild-caught seafood changed across Australia, which places produce the most value, and where exports go.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Australia’s seafood shift">
+    <meta property="og:description" content="How seafood farming changed Australia, from states and territories to export connections with Malaysia.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Australia’s seafood shift</title>
+    <link rel="preload" href="fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SourceSerif4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/styles.css?v=20261007nav3">
+    <script defer src="vendor/vega.min.js"></script>
+    <script defer src="vendor/vega-lite.min.js"></script>
+    <script defer src="vendor/vega-embed.min.js"></script>
+    <script defer src="js/main.js?v=20261007nav"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#change">Skip to the story</a>
+    <noscript>
+      <p class="runtime-notice">JavaScript is required for the charts. The written findings and methods remain available below.</p>
+    </noscript>
+    <nav class="story-nav" aria-label="Story chapters">
+      <div class="shell nav-inner">
+        <a href="#change">The shift</a><a href="#places">The places</a><a href="#species">The species</a><a href="#markets">The markets</a>
+      </div>
+    </nav>
+    <header class="hero">
+      <div class="shell">
+        <h1>Australia’s seafood <em>shift</em>
+        </h1>
+        <p class="dek"><strong>Farming reshaped Australia’s seafood industry.</strong> See how farming and wild catch changed, which parts of Australia produce the most value, and where exports go, including Malaysia.</p>
+      </div>
+    </header>
+    <main>
+      <section class="intro shell" aria-label="How to read this story">
+        <aside class="data-context" aria-labelledby="data-context-title">
+          <h2 id="data-context-title">2024–25 at a glance</h2>
+          <dl class="production-facts">
+            <div class="kpi-card">
+              <dt>Production value</dt><dd aria-label="3.72 billion Australian dollars">A$3.72<span>bn</span></dd>
+            </div>
+            <div class="kpi-card">
+              <dt>Tonnes produced</dt> <dd>295,838</dd>
+            </div>
+            <div class="kpi-card">
+              <dt>Export value</dt><dd aria-label="1.48 billion Australian dollars">A$1.48<span>bn</span></dd>
+            </div>
+            <div class="kpi-card">
+              <dt>Exports from the top 3 groups</dt><dd aria-label="75.4 percent">75.4<span>%</span></dd>
+            </div>
+          </dl>
+        </aside>
+        <div class="reading-key">
+          <p><strong>New to this topic?</strong> Aquaculture means farming fish and other aquatic products; wild catch comes from natural waters. A state or territory is a part of Australia, such as Tasmania or Western Australia. Production value is what output is worth when it leaves a farm or fishing boat, not its shop price or profit.</p>
+        </div>
+        <div class="reading-key">
+          <p><strong>Reading the numbers.</strong> A$ means Australian dollars; A$m means millions of Australian dollars, and “bn” means billion. A tonne is 1,000 kilograms. A 2024–25 financial year runs from July 2024 to June 2025.</p>
+        </div>
+      </section>
+      <section id="change" class="chapter shell">
+        <div class="chapter-head">
+          <div>
+            <h2>Farmed value grew.<br>Wild-catch value shrank.</h2>
+            <p>In 2024–25 dollars, aquaculture value grew <strong>67.6%</strong> between 1998–99 and 2024–25. Wild-catch value fell <strong>48.7%</strong>.</p>
+          </div>
+        </div>
+        <article class="chart-block finding-first">
+          <h3>Farmed and wild production took different paths</h3>
+          <p class="chart-reading"><strong>Farmed value first overtook wild catch in 2019–20 within this series.</strong> The Australia-wide total, adjusted so tuna is not counted twice, was <strong>14.7% lower</strong> than in 1998–99 after inflation. Over the latest decade, however, it rose <strong>2.5%</strong>.</p>
+          <p class="chart-note">Values are adjusted for inflation to <b>2024–25 dollars</b>. This accounts for general price rises, making years easier to compare. The national total removes tuna counted in both sectors, so it is not their sum.</p>
+          <div id="vis01" class="vis" aria-label="Time series comparing farmed and wild-catch production value adjusted for inflation to 2024–25 dollars">
+          </div>
+          <p class="source">ABARES Table 1; ABS inflation data.</p>
+        </article>
+        <div class="split-story">
+          <div class="aside-copy">
+            <h3>Not every state or territory moved toward farming.</h3>
+            <p>Farming share is farmed value as a percentage of farmed plus locally managed wild-catch value.</p>
+            <p>Choose a place to highlight it; lines show endpoints only. Seven places have reported values; the Australian Capital Territory has none.</p>
+            <p class="chart-reading"><strong>Tasmania made the clearest shift toward farming.</strong> Its share rose from <b>33.5% to 91.4%</b>, while Western Australia fell from <b>31.7% to 18.9%</b>. A rising share does not necessarily mean more total production.</p>
+            <p class="source">ABARES Table 1.</p>
+          </div>
+          <article class="chart-block">
+            <h3>Aquaculture’s share, then and now</h3>
+            <div id="vis02" class="vis" aria-label="Seven states and territories compared by farming share in 1998–99 and 2024–25">
+            </div>
+          </article>
+        </div>
+        <article class="chart-block finding-first">
+          <h3>How did farming shares vary across places?</h3>
+          <p class="chart-reading"><strong>The middle farming share rose, but places remain very different.</strong> Across the seven states and territories, it increased from <strong>32.4% in 1998–99 to 52.6% in 2024–25</strong>. The latest shares range from 18.9% to 91.4%; these boxes do not show Australia’s total production.</p>
+          <p class="chart-note">Each dot represents one of seven places, counted equally. Boxes show the middle half; the centre line marks the median (middle value), labelled below each year. Whiskers show the minimum and maximum. Highlight a place to follow its dots; boxes always include all seven.</p>
+          <div id="vis13" class="vis" aria-label="Box plots and seven dots per year showing farming shares across states and territories in four years">
+          </div>
+          <p class="source">ABARES Table 1.</p>
+        </article>
+      </section>
+      <section id="places" class="chapter shell">
+        <div class="chapter-head">
+          <div>
+            <h2>Tasmania leads farmed value.<br>Western Australia leads wild catch.</h2>
+            <p>In 2024–25, Tasmania, the island south of mainland Australia, produced <strong>A$1.29 billion</strong> in farmed value. Western Australia produced <strong>A$503.2 million</strong> from wild catch managed by the state, the largest such value.</p>
+          </div>
+        </div>
+        <fieldset id="map-controls" class="chart-controls" disabled>
+          <legend>Compare both maps in the same year</legend>
+          <label for="map-year">Financial year: <output id="map-year-label" for="map-year">2024–25</output></label>
+          <input id="map-year" type="range" min="1999" max="2025" step="1" value="2025" aria-valuetext="2024–25">
+          <button id="map-latest" type="button">Latest year</button>
+        </fieldset>
+        <div class="grid two chart-pair">
+          <article class="chart-block">
+            <h3>How much of local value comes from farming?</h3>
+            <p class="chart-note">Darker shading means a larger <b>percentage</b> of that state or territory’s value comes from farming, not more dollars. The Australian Capital Territory is grey because it has no reported value; grey does not mean zero.</p>
+            <div id="vis03" class="vis map" aria-label="Map shading seven Australian states and territories by farming share; ACT is grey with no reported value">
+            </div>
+            <p class="chart-reading"><strong id="map-share-reading">In 2024–25, Tasmania has the highest farming share (91.4%).</strong> This map compares local percentages, not total dollars.</p>
+            <p class="source">ABARES Table 1.</p>
+          </article>
+          <article class="chart-block">
+            <h3>Where is production value largest?</h3>
+            <p class="chart-note">A larger circle means more production value. Circle <b>area</b>, not width, follows the dollar amount. Choose combined, farmed or wild-catch value to compare places.</p>
+            <div id="vis04" class="vis map" aria-label="Map using circle size to show production value in seven Australian states and territories">
+            </div>
+            <p class="chart-reading"><strong id="map-value-reading">In 2024–25, Tasmania has the largest combined value (A$1,412.2 million).</strong> Values are in each year’s dollars. The size scale stays fixed across years and production types.</p>
+            <p class="source">ABARES Table 1. Circles mark whole states.</p>
+          </article>
+        </div>
+        <article class="chart-block mosaic-block">
+          <h3>Which places supply farmed and wild value?</h3>
+          <p class="chart-note">In 2024–25, each column is a place or group of places: wider means more combined value. Its teal and rust parts show the farming/wild-catch split. The <b>area</b> of each part represents its dollar value. “Other states and territories” groups New South Wales, Victoria and the Northern Territory.</p>
+          <div id="vis14" class="vis" aria-label="Mosaic showing both the size and farming versus wild-catch split of production value across seven states and territories">
+          </div>
+          <p class="chart-reading"><strong>Farming and wild catch have different geographic centres.</strong> Tasmania supplies <strong>61.5%</strong> of farmed value across these seven places; Western Australia supplies <strong>40.3%</strong> of their state-managed wild-catch value.</p>
+          <div class="chart-context">
+            <p class="section-caveat"><strong>Why isn’t all wild catch shown by state?</strong> In 2024–25, nationally managed fisheries contributed <b>A$399.3 million</b> in wild-catch value. That appears in the Australia-wide chart but not in these state comparisons.</p>
+            <p class="source">ABARES Table 1.</p>
+          </div>
+        </article>
+      </section>
+      <section id="species" class="chapter shell">
+        <div class="chapter-head">
+          <div>
+            <h2>A few groups carry<br>much of the value.</h2>
+            <p>Salmonids (salmon and trout) accounted for <strong>34.0%</strong> of national industry value in 2024–25. Their importance is even greater within aquaculture, where they contributed <strong>60.3%</strong>.</p>
+          </div>
+        </div>
+        <article class="chart-block finding-first">
+          <h3>Salmonids dominate farmed value across the decade</h3>
+          <p class="chart-reading"><strong>Salmon and trout stand apart throughout the decade.</strong> In 2024–25 they supplied 60.3% of farmed value, up from 55.1% in 2015–16; oysters supplied 8.3% and prawns 8.1%. The source also includes pearls and grouped products.</p>
+          <p class="chart-note">Each cell shows a group’s percentage of all farmed value in one year. Darker means a larger percentage. <b>Select “Explore smaller groups” to reveal differences below 10%.</b> This leaves out salmonids and changes the scale from 0–70% to 0–10%. Percentages still use <b>all farmed value</b> as their total.</p>
+          <div id="vis05" class="vis" aria-label="Grid showing each farmed species group’s percentage of aquaculture value over ten years">
+          </div>
+          <p class="source">ABARES Table 4. “Other products” means products not listed separately in the source.</p>
+        </article>
+        <article class="chart-block finding-first">
+          <h3>One industry, different sources of value</h3>
+          <p class="chart-reading"><strong>Salmon and trout make up about one-third of industry value.</strong> The total also includes grouped and non-food products. A large rectangle means more dollar value, not necessarily more tonnes.</p>
+          <p class="chart-note">Each rectangle’s area shows a product group’s share of the <b>A$3.72 billion</b> Australia-wide total. The frames group finfish, crustaceans and molluscs, following the source. Other products are reported separately. Hover for complete names and values.</p>
+          <div id="vis06" class="vis" aria-label="Rectangles sized by each species group’s share of Australia-wide production value">
+          </div>
+          <p class="source">ABARES Table 2.</p>
+        </article>
+        <article class="chart-block finding-first">
+          <h3>Tonnes and dollars tell different stories</h3>
+          <p class="chart-reading"><strong>Rock lobsters have substantial production value from relatively few tonnes:</strong> A$622.6 million from about 10,955 tonnes. Their dot sits above prawns despite lower weight. Salmonids lead both measures among the nine groups shown.</p>
+          <p class="chart-note">Each dot is one of nine named edible groups. Read its position across for production weight in tonnes and up for value in Australian dollars.</p>
+          <div id="vis07" class="vis" aria-label="Dots comparing production weight in tonnes and value in Australian dollars for nine edible species groups">
+          </div>
+          <p class="source">ABARES Table 2.</p>
+        </article>
+        <article class="chart-block finding-first">
+          <h3>What changed in the latest year?</h3>
+          <p class="chart-reading"><strong>Rock-lobster gains were mostly offset by falls elsewhere.</strong> Its value rose A$133.3 million, while prawns and salmonids fell A$57.3 million and A$36.0 million. The chart shows which figures changed, not why.</p>
+          <p class="chart-note">Each floating bar adds to or subtracts from the running total. The final bar shows the net rise from 2023–24 to 2024–25: <b>A$2.6 million</b>. “Other categories” pools nine source groups.</p>
+          <div id="vis08" class="vis" aria-label="Bars showing how product groups added to or subtracted from the latest change in Australia-wide production value">
+          </div>
+          <p class="source">ABARES Tables 1–2. Values are in each year’s dollars.</p>
+        </article>
+      </section>
+      <section id="markets" class="chapter shell">
+        <div class="chapter-head">
+          <div>
+            <h2>Exports are concentrated.<br>The connections reach Malaysia.</h2>
+            <p>Australian fisheries exports were worth <strong>A$1.48 billion</strong> as they left the country in 2024–25. Rock lobsters, salmonids and tunas made up <strong>75.4%</strong> of that value.</p>
+          </div>
+        </div>
+        <div class="grid two chart-pair">
+          <article class="chart-block">
+            <h3>Three product groups, three quarters of export value</h3>
+            <p class="chart-note">Each square represents about 1% of the value of <b>all</b> fisheries exports. Squares round to whole percentages; the key gives shares to one decimal.</p>
+            <div class="waffle-figure">
+              <div id="vis09" class="vis waffle" aria-label="One hundred squares showing rock lobsters, salmonids, tunas and all other products as shares of export value">
+              </div>
+              <p class="chart-key"><span><i class="key-lobster" aria-hidden="true"></i>Rock lobsters 44.0%</span><span><i class="key-salmon" aria-hidden="true"></i>Salmonids 23.1%</span><span><i class="key-tuna" aria-hidden="true"></i>Tunas 8.3%</span><span><i class="key-other" aria-hidden="true"></i>All others 24.6%</span>
+              </p>
+            </div>
+            <p class="chart-reading"><strong>Export earnings depend heavily on three groups.</strong> Rock lobsters, salmon and trout, and tunas bring in roughly three of every four export dollars. All other products share the final quarter.</p>
+            <p class="source">ABARES Table 13.</p>
+          </article>
+          <article class="chart-block">
+            <h3>Rock lobster returns to the top rank</h3>
+            <p class="chart-note">These are the five biggest product groups in 2024–25. Follow their lines back through eleven years. Rank 1 means the highest export value; every year’s ranks include products not drawn here.</p>
+            <div id="vis10" class="vis" aria-label="Lines showing how the export-value ranks of five product groups changed over eleven years">
+            </div>
+            <p class="chart-reading"><strong>Rock lobster regained first place in 2023–24.</strong> Salmonids led in 2021–22 and 2022–23. The lines show order, not how much money separates the ranks.</p>
+            <p class="source">ABARES Table 13.</p>
+          </article>
+        </div>
+        <article class="chart-block finding-first flow-block">
+          <h3>Where do selected seafood exports go?</h3>
+          <p class="chart-reading"><strong>China is the largest of these reported destinations; Malaysia is smaller but visible.</strong> China received about A$658.9 million and Malaysia about A$12.2 million. The list makes small amounts easier to compare than line thickness alone.</p>
+          <p class="chart-note">These are food exports to <b>11 reported destinations</b> in 2024–25, a subset of the totals above. Thicker lines mean more value; arrows show direction. Choose a destination below to show its connection; “All selected partners” restores the overview. The bars retain all 11 destinations for comparison.</p>
+          <div id="vis12" class="vis map" aria-label="Map with arrows from Australia to eleven selected seafood export destinations, weighted by export value">
+          </div>
+          <p class="source">ABARES Table 17. Lines show markets, <b>not shipping routes</b>.</p>
+        </article>
+        <div class="takeaway">
+          <h2>Australia’s seafood industry<br>is more than a catch total.</h2>
+          <p>Recorded farmed production value now exceeds wild catch, with much of farmed value in Tasmania and salmon and trout. A few product groups dominate export value; the selected destination data show strong Asian links, including Malaysia. These dollar patterns do not tell us whether seafood is affordable, profitable or environmentally sustainable.</p>
+        </div>
+      </section>
+      <section id="methods" class="methods shell">
+        <h2>Where the numbers come from</h2>
+        <div class="grid two">
+          <div>
+            <h3>Two data sources</h3>
+            <p><a href="https://www.agriculture.gov.au/abares/research-topics/fisheries/fisheries-and-aquaculture-statistics">ABARES Australian fisheries and aquaculture statistics</a>, September 2026 tables, supplies production and export values through 2024–25.</p>
+            <p><a href="https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/jul-2026">ABS Consumer Price Index, July 2026</a>, Table 17, supplies the inflation figures used to compare past production values in 2024–25 dollars.</p>
+          </div>
+          <div>
+            <h3>What the totals include</h3>
+            <p>ABARES calls production value gross value of production (GVP). It includes non-food products such as pearls, but excludes hatcheries. The <b>A$3.72 billion</b> Australia-wide total removes tuna counted in both wild catch and farming; it is not the sum of the two sector lines.</p>
+          </div>
+        </div>
+        <p class="source">Map outlines: <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files">ABS (ASGS 2021)</a> and <a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/">Natural Earth</a>.</p>
+        <p id="runtime-status" class="runtime-status" role="status" aria-live="polite">
+        </p>
+      </section>
+    </main>
+    <footer>
+      <div class="shell">
+        <p><strong>Australian seafood industry · FIT3179 Data Visualisation 2</strong>
+        </p>
+        <p>By Ooi Kai Jun · Updated 15 October 2026.</p>
+      </div>
+    </footer>
+  </body>
 </html>
