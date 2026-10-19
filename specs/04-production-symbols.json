@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 480,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,170 +29,67 @@
       "padding": 8
     }
   },
-  "projection": {
-    "type": "conicEqualArea",
-    "parallels": [
-      -18,
-      -36
-    ],
-    "rotate": [
-      -134,
-      0,
-      0
-    ],
-    "center": [
-      0,
-      -27
-    ]
-  },
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-134, 0, 0], "center": [0, -27]},
   "params": [
-    {
-      "name": "mapYear",
-      "value": 2025
-    },
+    {"name": "mapYear", "value": 2025},
     {
       "name": "mapSector",
       "value": "Combined",
-      "bind": {
-        "input": "select",
-        "options": [
-          "Combined",
-          "Aquaculture",
-          "Wild catch"
-        ],
-        "name": "Production value: "
-      }
+      "bind": {"input": "select", "options": ["Combined", "Aquaculture", "Wild catch"], "name": "Production value: "}
     }
   ],
   "layer": [
     {
-      "data": {
-        "url": "data/australia_states.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#edf0eb",
-        "stroke": "white",
-        "aria": false
-      }
+      "data": {"url": "data/australia_states.geojson", "format": {"type": "json", "property": "features"}},
+      "mark": {"type": "geoshape", "fill": "#edf0eb", "stroke": "white", "aria": false}
     },
     {
-      "data": {
-        "url": "data/state_map_series.csv"
-      },
+      "data": {"url": "data/state_map_series.csv"},
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === mapYear"
-        },
+        {"filter": "toNumber(datum.year_end) === mapYear"},
         {
           "calculate": "mapSector === 'Aquaculture' ? datum.aquaculture_m : mapSector === 'Wild catch' ? datum.wild_m : datum.total_m",
           "as": "shown"
         }
       ],
-      "mark": {
-        "type": "circle",
-        "color": "#183b46",
-        "fillOpacity": 0.45,
-        "stroke": "#183b46",
-        "strokeWidth": 0.8
-      },
+      "mark": {"type": "circle", "color": "#183b46", "fillOpacity": 0.45, "stroke": "#183b46", "strokeWidth": 0.8},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
         "size": {
           "field": "shown",
           "type": "quantitative",
           "title": "A$ million",
-          "scale": {
-            "domain": [
-              0,
-              2000
-            ],
-            "range": [
-              0,
-              5000
-            ],
-            "zero": true
-          },
+          "scale": {"domain": [0, 2000], "range": [0, 5000], "zero": true},
           "legend": {
-            "values": [
-              100,
-              500,
-              2000
-            ],
+            "values": [100, 500, 2000],
             "symbolLimit": 3,
-            "columns": {
-              "expr": "width < 340 ? 2 : 3"
-            },
+            "columns": {"expr": "width < 340 ? 2 : 3"},
             "direction": "horizontal"
           }
         },
         "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal"
-          },
-          {
-            "field": "year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
-          {
-            "field": "shown",
-            "type": "quantitative",
-            "title": "Production value (A$m)",
-            "format": ",.1f"
-          }
+          {"field": "state", "type": "nominal", "title": "State or territory"},
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "shown", "type": "quantitative", "title": "Production value (A$m)", "format": ",.1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/state_map_series.csv"
-      },
+      "data": {"url": "data/state_map_series.csv"},
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"
-        }
+        {"filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"}
       ],
-      "mark": {
-        "type": "rule",
-        "color": "#52666b",
-        "strokeWidth": 1,
-        "x2Offset": 30,
-        "y2Offset": 15
-      },
+      "mark": {"type": "rule", "color": "#52666b", "strokeWidth": 1, "x2Offset": 30, "y2Offset": 15},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "field": "longitude"
-        },
-        "latitude2": {
-          "field": "latitude"
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"field": "longitude"},
+        "latitude2": {"field": "latitude"}
       }
     },
     {
-      "data": {
-        "url": "data/state_map_series.csv"
-      },
+      "data": {"url": "data/state_map_series.csv"},
       "mark": {
         "type": "text",
         "dy": {
@@ -213,23 +105,12 @@
         }
       },
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "map_label",
-          "type": "nominal"
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "map_label", "type": "nominal"}
       },
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === mapYear"
-        },
+        {"filter": "toNumber(datum.year_end) === mapYear"},
         {
           "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
           "as": "map_label"

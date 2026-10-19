@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 350,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,96 +29,33 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/state_mix_mosaic.csv"
-  },
+  "data": {"url": "data/state_mix_mosaic.csv"},
   "layer": [
     {
-      "mark": {
-        "type": "rect",
-        "stroke": "white",
-        "strokeWidth": 2
-      },
+      "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
       "encoding": {
-        "x": {
-          "field": "x0",
-          "type": "quantitative",
-          "axis": null,
-          "scale": {
-            "domain": [
-              0,
-              1
-            ]
-          }
-        },
-        "x2": {
-          "field": "x1"
-        },
-        "y": {
-          "field": "y0",
-          "type": "quantitative",
-          "axis": null,
-          "scale": {
-            "domain": [
-              0,
-              1.22
-            ]
-          }
-        },
-        "y2": {
-          "field": "y1"
-        },
+        "x": {"field": "x0", "type": "quantitative", "axis": null, "scale": {"domain": [0, 1]}},
+        "x2": {"field": "x1"},
+        "y": {"field": "y0", "type": "quantitative", "axis": null, "scale": {"domain": [0, 1.22]}},
+        "y2": {"field": "y1"},
         "color": {
           "field": "sector",
           "type": "nominal",
           "title": null,
-          "scale": {
-            "domain": [
-              "Aquaculture",
-              "Wild catch"
-            ],
-            "range": [
-              "#087f83",
-              "#c45d3a"
-            ]
-          }
+          "scale": {"domain": ["Aquaculture", "Wild catch"], "range": ["#087f83", "#c45d3a"]}
         },
         "tooltip": [
-          {
-            "field": "group",
-            "type": "nominal",
-            "title": "Place"
-          },
-          {
-            "field": "sector",
-            "type": "nominal"
-          },
-          {
-            "field": "value_m",
-            "type": "quantitative",
-            "title": "Production value (A$m)",
-            "format": ",.1f"
-          },
-          {
-            "field": "sector_share",
-            "type": "quantitative",
-            "title": "Share of this place\u2019s value",
-            "format": ".1%"
-          },
-          {
-            "field": "total_m",
-            "type": "quantitative",
-            "title": "Combined value (A$m)",
-            "format": ",.1f"
-          }
+          {"field": "group", "type": "nominal", "title": "Place"},
+          {"field": "sector", "type": "nominal", "title": "Sector"},
+          {"field": "value_m", "type": "quantitative", "title": "Production value (A$m)", "format": ",.1f"},
+          {"field": "sector_share", "type": "quantitative", "title": "Share of this place’s value", "format": ".1%"},
+          {"field": "total_m", "type": "quantitative", "title": "Combined value (A$m)", "format": ",.1f"}
         ]
       }
     },
     {
       "transform": [
-        {
-          "filter": "datum.sector === 'Aquaculture'"
-        },
+        {"filter": "datum.sector === 'Aquaculture'"},
         {
           "calculate": "datum.group === 'Other three jurisdictions' ? 'Other states\\nand territories' : replace(datum.group, ' Australia', '\\nAustralia')",
           "as": "place_label"
@@ -139,24 +71,9 @@
         "lineHeight": 16
       },
       "encoding": {
-        "x": {
-          "field": "xc",
-          "type": "quantitative",
-          "axis": null,
-          "scale": {
-            "domain": [
-              0,
-              1
-            ]
-          }
-        },
-        "y": {
-          "value": 5
-        },
-        "text": {
-          "field": "place_label",
-          "type": "nominal"
-        }
+        "x": {"field": "xc", "type": "quantitative", "axis": null, "scale": {"domain": [0, 1]}},
+        "y": {"value": 5},
+        "text": {"field": "place_label", "type": "nominal"}
       }
     }
   ],

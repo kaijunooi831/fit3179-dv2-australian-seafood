@@ -10,7 +10,7 @@
   {
     "id": "vis02",
     "spec": "specs/02-jurisdiction-slope.json",
-    "title": "Farming\u2019s share rose in some states and territories and fell in others",
+    "title": "Farming’s share rose in some states and territories and fell in others",
     "data": "data/state_real.csv",
     "chapter": 1,
     "status": "source-verified; lecturer refinements validated locally 15 October 2026"
@@ -18,7 +18,7 @@
   {
     "id": "vis13",
     "spec": "specs/13-jurisdiction-distribution.json",
-    "title": "The middle farming share rose, but places remain different",
+    "title": "The median farming share rose, but regional differences remained",
     "data": "data/state_real.csv",
     "chapter": 1,
     "status": "source-verified; lecturer refinements validated locally 15 October 2026"
@@ -26,7 +26,7 @@
   {
     "id": "vis03",
     "spec": "specs/03-aquaculture-choropleth.json",
-    "title": "Farming\u2019s share across seven places in the selected year",
+    "title": "Farming’s share across seven places in the selected year",
     "data": "data/state_map_series.csv",
     "chapter": 2,
     "status": "source-verified; lecturer refinements validated locally 15 October 2026"

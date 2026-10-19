@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 350,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,90 +29,37 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/species_scatter.csv"
-  },
+  "data": {"url": "data/species_scatter.csv"},
   "encoding": {
     "x": {
       "field": "tonnes",
       "type": "quantitative",
       "title": "Production (tonnes)",
-      "scale": {
-        "zero": true
-      },
-      "axis": {
-        "format": "~s"
-      }
+      "scale": {"zero": true},
+      "axis": {"format": "~s"}
     },
-    "y": {
-      "field": "value_m",
-      "type": "quantitative",
-      "title": "Production value (A$ million)",
-      "scale": {
-        "zero": true
-      }
-    },
+    "y": {"field": "value_m", "type": "quantitative", "title": "Production value (A$ million)", "scale": {"zero": true}},
     "tooltip": [
-      {
-        "field": "species",
-        "type": "nominal"
-      },
-      {
-        "field": "tonnes",
-        "type": "quantitative",
-        "title": "Tonnes",
-        "format": ",.0f"
-      },
-      {
-        "field": "value_m",
-        "type": "quantitative",
-        "title": "A$ million",
-        "format": ",.1f"
-      }
+      {"field": "species", "type": "nominal", "title": "Species"},
+      {"field": "tonnes", "type": "quantitative", "title": "Tonnes", "format": ",.0f"},
+      {"field": "value_m", "type": "quantitative", "title": "A$ million", "format": ",.1f"}
     ]
   },
   "layer": [
-    {
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "color": "#183b46",
-        "size": 100,
-        "opacity": 0.8
-      }
-    },
+    {"mark": {"type": "point", "filled": true, "color": "#183b46", "size": 100, "opacity": 0.8}},
     {
       "transform": [
-        {
-          "filter": {
-            "field": "species",
-            "oneOf": [
-              "Salmonids",
-              "Rock Lobsters",
-              "Prawns",
-              "Tunas"
-            ]
-          }
-        }
+        {"filter": {"field": "species", "oneOf": ["Salmonids", "Rock Lobsters", "Prawns", "Tunas"]}}
       ],
       "mark": {
         "type": "text",
-        "align": {
-          "expr": "datum.species === 'Salmonids' ? 'right' : 'left'"
-        },
-        "dx": {
-          "expr": "datum.species === 'Salmonids' ? -8 : 8"
-        },
-        "dy": {
-          "expr": "datum.species === 'Salmonids' ? 14 : -10"
-        },
+        "align": {"expr": "datum.species === 'Salmonids' ? 'right' : 'left'"},
+        "dx": {"expr": "datum.species === 'Salmonids' ? -8 : 8"},
+        "dy": {"expr": "datum.species === 'Salmonids' ? 14 : -10"},
         "fontSize": 13
       },
       "encoding": {
-        "text": {
-          "field": "species",
-          "type": "nominal"
-        }
+        "text": {"field": "species", "type": "nominal"}
       }
     }
   ],

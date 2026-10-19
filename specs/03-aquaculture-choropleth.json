@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 480,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,197 +29,74 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/australia_states.geojson",
-    "format": {
-      "type": "json",
-      "property": "features"
-    }
-  },
-  "projection": {
-    "type": "conicEqualArea",
-    "parallels": [
-      -18,
-      -36
-    ],
-    "rotate": [
-      -134,
-      0,
-      0
-    ],
-    "center": [
-      0,
-      -27
-    ]
-  },
+  "data": {"url": "data/australia_states.geojson", "format": {"type": "json", "property": "features"}},
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-134, 0, 0], "center": [0, -27]},
   "params": [
-    {
-      "name": "mapYear",
-      "value": 2025
-    }
+    {"name": "mapYear", "value": 2025}
   ],
   "transform": [
-    {
-      "calculate": "datum.properties.state+'|'+mapYear",
-      "as": "state_year"
-    },
+    {"calculate": "datum.properties.state+'|'+mapYear", "as": "state_year"},
     {
       "lookup": "state_year",
       "from": {
-        "data": {
-          "url": "data/state_map_series.csv"
-        },
+        "data": {"url": "data/state_map_series.csv"},
         "key": "state_year",
-        "fields": [
-          "year",
-          "aquaculture_share",
-          "aquaculture_m",
-          "wild_m",
-          "total_m"
-        ]
+        "fields": ["year", "aquaculture_share", "aquaculture_m", "wild_m", "total_m"]
       }
     }
   ],
   "layer": [
     {
       "transform": [
-        {
-          "filter": "!isValid(datum.aquaculture_share)"
-        },
-        {
-          "calculate": "'No reported production value'",
-          "as": "availability"
-        }
+        {"filter": "!isValid(datum.aquaculture_share)"},
+        {"calculate": "'No reported production value'", "as": "availability"}
       ],
-      "mark": {
-        "type": "geoshape",
-        "fill": "#cbd1d0",
-        "stroke": "white",
-        "strokeWidth": 1
-      },
+      "mark": {"type": "geoshape", "fill": "#cbd1d0", "stroke": "white", "strokeWidth": 1},
       "encoding": {
         "tooltip": [
-          {
-            "field": "properties.state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "availability",
-            "type": "nominal",
-            "title": "Data"
-          }
+          {"field": "properties.state", "type": "nominal", "title": "State or territory"},
+          {"field": "availability", "type": "nominal", "title": "Data"}
         ]
       }
     },
     {
-      "mark": {
-        "type": "geoshape",
-        "stroke": "#fff",
-        "strokeWidth": 1,
-        "invalid": null
-      },
+      "mark": {"type": "geoshape", "stroke": "#fff", "strokeWidth": 1, "invalid": null},
       "encoding": {
         "color": {
           "field": "aquaculture_share",
           "type": "quantitative",
-          "scale": {
-            "domain": [
-              0,
-              1
-            ],
-            "range": [
-              "#edf3ee",
-              "#087f83"
-            ]
-          },
-          "legend": {
-            "title": [
-              "Share of local value",
-              "from farming"
-            ],
-            "format": ".0%",
-            "gradientLength": 180
-          }
+          "scale": {"domain": [0, 1], "range": ["#edf3ee", "#087f83"]},
+          "legend": {"title": ["Share of local value", "from farming"], "format": ".0%", "gradientLength": 180}
         },
         "tooltip": [
-          {
-            "field": "properties.state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
-          {
-            "field": "aquaculture_share",
-            "type": "quantitative",
-            "title": "Share from farming",
-            "format": ".1%"
-          },
-          {
-            "field": "aquaculture_m",
-            "type": "quantitative",
-            "title": "Farming value (A$m)",
-            "format": ",.1f"
-          },
-          {
-            "field": "wild_m",
-            "type": "quantitative",
-            "title": "State-managed wild catch (A$m)",
-            "format": ",.1f"
-          }
+          {"field": "properties.state", "type": "nominal", "title": "State or territory"},
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "aquaculture_share", "type": "quantitative", "title": "Share from farming", "format": ".1%"},
+          {"field": "aquaculture_m", "type": "quantitative", "title": "Farming value (A$m)", "format": ",.1f"},
+          {"field": "wild_m", "type": "quantitative", "title": "State-managed wild catch (A$m)", "format": ",.1f"}
         ]
       },
       "transform": [
-        {
-          "filter": "isValid(datum.aquaculture_share)"
-        }
+        {"filter": "isValid(datum.aquaculture_share)"}
       ]
     },
     {
-      "data": {
-        "url": "data/state_map_series.csv"
-      },
+      "data": {"url": "data/state_map_series.csv"},
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"
-        }
+        {"filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"}
       ],
-      "mark": {
-        "type": "rule",
-        "color": "#52666b",
-        "strokeWidth": 1,
-        "x2Offset": 30,
-        "y2Offset": 15
-      },
+      "mark": {"type": "rule", "color": "#52666b", "strokeWidth": 1, "x2Offset": 30, "y2Offset": 15},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "field": "longitude"
-        },
-        "latitude2": {
-          "field": "latitude"
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"field": "longitude"},
+        "latitude2": {"field": "latitude"}
       }
     },
     {
-      "data": {
-        "url": "data/state_map_series.csv"
-      },
+      "data": {"url": "data/state_map_series.csv"},
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === mapYear"
-        },
+        {"filter": "toNumber(datum.year_end) === mapYear"},
         {
           "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
           "as": "map_label"
@@ -244,27 +116,15 @@
         }
       },
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "map_label",
-          "type": "nominal"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "map_label", "type": "nominal"},
         "color": {
-          "condition": {
-            "test": "datum.state !== 'Tasmania' && datum.aquaculture_share > 0.65",
-            "value": "white"
-          },
+          "condition": {"test": "datum.state !== 'Tasmania' && datum.aquaculture_share > 0.65", "value": "white"},
           "value": "#183b46"
         }
       }
     }
   ],
-  "description": "Farming\u2019s share across seven places in the selected year"
+  "description": "Farming’s share across seven places in the selected year"
 }

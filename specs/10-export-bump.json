@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 330,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,225 +29,94 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/export_ranks.csv"
-  },
+  "data": {"url": "data/export_ranks.csv"},
   "encoding": {
     "x": {
       "field": "year_end",
       "type": "quantitative",
       "title": "Financial year ending",
-      "scale": {
-        "domain": [
-          2015,
-          2025
-        ],
-        "zero": false,
-        "range": [
-          0,
-          {
-            "expr": "max(80, width - 108)"
-          }
-        ]
-      },
-      "axis": {
-        "format": "d",
-        "values": [
-          2015,
-          2020,
-          2025
-        ]
-      }
+      "scale": {"domain": [2015, 2025], "zero": false, "range": [0, {"expr": "max(80, width - 108)"}]},
+      "axis": {"format": "d", "values": [2015, 2020, 2025]}
     },
-    "y": {
-      "field": "rank",
-      "type": "ordinal",
-      "title": "Export rank (1 = highest)",
-      "sort": "ascending"
-    },
+    "y": {"field": "rank", "type": "ordinal", "title": "Export rank (1 = highest)", "sort": "ascending"},
     "color": {
       "field": "commodity",
       "type": "nominal",
       "title": null,
       "scale": {
-        "domain": [
-          "Rock Lobsters",
-          "Salmonids",
-          "Tunas",
-          "Abalones",
-          "Other Finfish nei"
-        ],
-        "range": [
-          "#265d9b",
-          "#7356a1",
-          "#8f6a12",
-          "#aa4373",
-          "#575077"
-        ]
+        "domain": ["Rock Lobsters", "Salmonids", "Tunas", "Abalones", "Other Finfish nei"],
+        "range": ["#265d9b", "#7356a1", "#8f6a12", "#aa4373", "#575077"]
       },
       "legend": null
     },
     "tooltip": [
-      {
-        "field": "product_name",
-        "type": "nominal",
-        "title": "Product group"
-      },
-      {
-        "field": "year",
-        "type": "nominal"
-      },
-      {
-        "field": "rank",
-        "type": "quantitative",
-        "title": "Rank",
-        "format": "d"
-      },
-      {
-        "field": "value_m",
-        "type": "quantitative",
-        "title": "Export value (A$m)",
-        "format": ",.1f"
-      }
+      {"field": "product_name", "type": "nominal", "title": "Product group"},
+      {"field": "year", "type": "nominal", "title": "Year"},
+      {"field": "rank", "type": "quantitative", "title": "Rank", "format": "d"},
+      {"field": "value_m", "type": "quantitative", "title": "Export value (A$m)", "format": ",.1f"}
     ],
-    "order": {
-      "field": "year_end",
-      "type": "quantitative"
-    }
+    "order": {"field": "year_end", "type": "quantitative"}
   },
   "layer": [
-    {
-      "mark": {
-        "type": "line",
-        "point": {
-          "filled": true,
-          "size": 38
-        },
-        "strokeWidth": 2.5
-      }
-    },
+    {"mark": {"type": "line", "point": {"filled": true, "size": 38}, "strokeWidth": 2.5}},
     {
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2025"
-        },
+        {"filter": "toNumber(datum.year_end) === 2025"},
         {
           "calculate": "datum.commodity === 'Other Finfish nei' ? 'Other finfish' : datum.commodity === 'Rock Lobsters' ? 'Rock lobster' : datum.commodity",
           "as": "end_label"
         }
       ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 7,
-        "fontSize": 13,
-        "fontWeight": "bold"
-      },
+      "mark": {"type": "text", "align": "left", "dx": 7, "fontSize": 13, "fontWeight": "bold"},
       "encoding": {
-        "text": {
-          "field": "end_label",
-          "type": "nominal"
-        }
+        "text": {"field": "end_label", "type": "nominal"}
       }
     },
     {
       "name": "rank_return_pointer",
       "transform": [
-        {
-          "filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"
-        }
+        {"filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"}
       ],
-      "mark": {
-        "type": "rule",
-        "strokeWidth": 1.2,
-        "yOffset": -7,
-        "y2Offset": -27
-      },
+      "mark": {"type": "rule", "strokeWidth": 1.2, "yOffset": -7, "y2Offset": -27},
       "encoding": {
-        "y2": {
-          "field": "rank"
-        },
-        "color": {
-          "value": "#52666b"
-        }
+        "y2": {"field": "rank"},
+        "color": {"value": "#52666b"}
       }
     },
     {
       "name": "rank_return_point",
       "transform": [
-        {
-          "filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"
-        }
+        {"filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"}
       ],
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "fill": "#f8f6ef",
-        "stroke": "#265d9b",
-        "strokeWidth": 2,
-        "size": 85
-      },
+      "mark": {"type": "point", "filled": true, "fill": "#f8f6ef", "stroke": "#265d9b", "strokeWidth": 2, "size": 85},
       "encoding": {
-        "color": {
-          "value": "#265d9b"
-        }
+        "color": {"value": "#265d9b"}
       }
     },
     {
       "name": "rank_return_year",
       "transform": [
-        {
-          "filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"
-        }
+        {"filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"}
       ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -69,
-        "fontSize": 13,
-        "fontWeight": 600
-      },
+      "mark": {"type": "text", "align": "right", "dy": -69, "fontSize": 13, "fontWeight": 600},
       "encoding": {
-        "text": {
-          "field": "year",
-          "type": "nominal"
-        },
-        "color": {
-          "value": "#183b46"
-        }
+        "text": {"field": "year", "type": "nominal"},
+        "color": {"value": "#183b46"}
       }
     },
     {
       "name": "rank_return_label",
       "transform": [
-        {
-          "filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"
-        }
+        {"filter": "datum.commodity === 'Rock Lobsters' && toNumber(datum.year_end) === 2024"}
       ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -53,
-        "lineBreak": "\n",
-        "lineHeight": 16,
-        "fontSize": 13
-      },
+      "mark": {"type": "text", "align": "right", "dy": -53, "lineBreak": "\n", "lineHeight": 16, "fontSize": 13},
       "encoding": {
-        "text": {
-          "value": "Rock lobster\nback at no. 1"
-        },
-        "color": {
-          "value": "#183b46"
-        }
+        "text": {"value": "Rock lobster\nback at no. 1"},
+        "color": {"value": "#183b46"}
       }
     }
   ],
-  "padding": {
-    "top": 18,
-    "right": 5,
-    "bottom": 5,
-    "left": 5
-  },
+  "padding": {"top": 18, "right": 5, "bottom": 5, "left": 5},
   "description": "Rock lobster has regained the top export rank",
   "transform": [
     {

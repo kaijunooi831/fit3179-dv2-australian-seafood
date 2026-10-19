@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 360,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,129 +29,48 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/value_change.csv"
-  },
+  "data": {"url": "data/value_change.csv"},
   "encoding": {
     "x": {
       "field": "label",
       "type": "ordinal",
       "title": null,
-      "sort": {
-        "field": "order"
-      },
-      "axis": {
-        "labelAngle": -35,
-        "labelLimit": 110,
-        "labelPadding": 18
-      }
+      "sort": {"field": "order"},
+      "axis": {"labelAngle": -35, "labelLimit": 110, "labelPadding": 18}
     },
-    "y": {
-      "field": "start",
-      "type": "quantitative",
-      "title": "Cumulative change (A$ million)",
-      "scale": {
-        "zero": true
-      }
-    },
+    "y": {"field": "start", "type": "quantitative", "title": "Cumulative change (A$ million)", "scale": {"zero": true}},
     "color": {
       "field": "kind",
       "type": "nominal",
       "title": null,
-      "scale": {
-        "domain": [
-          "Total",
-          "Increase",
-          "Decrease"
-        ],
-        "range": [
-          "#183b46",
-          "#566775",
-          "#b8bec3"
-        ]
-      }
+      "scale": {"domain": ["Total", "Increase", "Decrease"], "range": ["#183b46", "#566775", "#b8bec3"]}
     },
     "tooltip": [
-      {
-        "field": "label",
-        "type": "nominal"
-      },
-      {
-        "field": "change",
-        "type": "quantitative",
-        "title": "Change (A$m)",
-        "format": ",.1f"
-      },
-      {
-        "field": "end",
-        "type": "quantitative",
-        "title": "Cumulative change (A$m)",
-        "format": ",.1f"
-      }
+      {"field": "label", "type": "nominal", "title": "Category"},
+      {"field": "change", "type": "quantitative", "title": "Change (A$m)", "format": ",.1f"},
+      {"field": "end", "type": "quantitative", "title": "Cumulative change (A$m)", "format": ",.1f"}
     ]
   },
   "layer": [
     {
-      "mark": {
-        "type": "rule",
-        "color": "#a8b8b0",
-        "strokeWidth": 1
-      },
+      "mark": {"type": "rule", "color": "#a8b8b0", "strokeWidth": 1},
       "transform": [
-        {
-          "filter": "datum.order < 4"
-        }
+        {"filter": "datum.order < 4"}
       ],
       "encoding": {
-        "x2": {
-          "field": "next_label"
-        },
-        "y": {
-          "field": "end",
-          "type": "quantitative"
-        },
-        "y2": {
-          "field": "end"
-        },
-        "color": {
-          "value": "#a8b8b0"
-        }
+        "x2": {"field": "next_label"},
+        "y": {"field": "end", "type": "quantitative"},
+        "y2": {"field": "end"},
+        "color": {"value": "#a8b8b0"}
       }
     },
+    {"mark": {"type": "bar", "width": {"band": 0.55}}, "encoding": {"y2": {"field": "end"}}},
     {
-      "mark": {
-        "type": "bar",
-        "width": {
-          "band": 0.55
-        }
-      },
+      "mark": {"type": "text", "dy": {"expr": "datum.change > 0 ? -9 : 14"}, "color": "#183b46", "fontSize": 13},
       "encoding": {
-        "y2": {
-          "field": "end"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "dy": {
-          "expr": "datum.change > 0 ? -9 : 14"
-        },
-        "color": "#183b46",
-        "fontSize": 13
-      },
-      "encoding": {
-        "y": {
-          "field": "end",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "change_label",
-          "type": "nominal"
-        },
-        "color": {
-          "value": "#183b46"
-        }
+        "y": {"field": "end", "type": "quantitative"},
+        "text": {"field": "change_label", "type": "nominal"},
+        "color": {"value": "#183b46"}
       }
     }
   ],

@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 350,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,114 +29,46 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/sector_real.csv"
-  },
+  "data": {"url": "data/sector_real.csv"},
   "transform": [
-    {
-      "filter": "datum.sector !== 'Adjusted national'"
-    }
+    {"filter": "datum.sector !== 'Adjusted national'"}
   ],
   "encoding": {
     "x": {
       "field": "year_end",
       "type": "quantitative",
       "title": "Financial year ending",
-      "scale": {
-        "domain": [
-          1999,
-          2025
-        ],
-        "zero": false,
-        "range": [
-          0,
-          {
-            "expr": "max(80, width - 108)"
-          }
-        ]
-      },
-      "axis": {
-        "format": "d",
-        "values": [
-          2000,
-          2010,
-          2025
-        ]
-      }
+      "scale": {"domain": [1999, 2025], "zero": false, "range": [0, {"expr": "max(80, width - 108)"}]},
+      "axis": {"format": "d", "values": [2000, 2010, 2025]}
     },
     "y": {
       "field": "real_m",
       "type": "quantitative",
-      "title": "Production value (A$m, 2024\u201325 dollars)",
-      "scale": {
-        "zero": true,
-        "domainMax": 4500
-      }
+      "title": "Production value (A$m, 2024–25 dollars)",
+      "scale": {"zero": true, "domainMax": 4500}
     },
     "color": {
       "field": "sector",
       "type": "nominal",
       "title": null,
-      "scale": {
-        "domain": [
-          "Aquaculture",
-          "Wild catch"
-        ],
-        "range": [
-          "#087f83",
-          "#c45d3a"
-        ]
-      },
+      "scale": {"domain": ["Aquaculture", "Wild catch"], "range": ["#087f83", "#c45d3a"]},
       "legend": null
     },
     "tooltip": [
-      {
-        "field": "year",
-        "type": "nominal"
-      },
-      {
-        "field": "sector",
-        "type": "nominal"
-      },
-      {
-        "field": "real_m",
-        "type": "quantitative",
-        "title": "Value (2024\u201325 A$m)",
-        "format": ",.1f"
-      }
+      {"field": "year", "type": "nominal", "title": "Year"},
+      {"field": "sector", "type": "nominal", "title": "Sector"},
+      {"field": "real_m", "type": "quantitative", "title": "Value (2024–25 A$m)", "format": ",.1f"}
     ]
   },
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "strokeWidth": 3,
-        "point": {
-          "filled": true,
-          "size": 18
-        }
-      },
+      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 18}},
       "encoding": {
         "strokeDash": {
           "field": "sector",
           "type": "nominal",
           "title": null,
-          "scale": {
-            "domain": [
-              "Aquaculture",
-              "Wild catch"
-            ],
-            "range": [
-              [
-                1,
-                0
-              ],
-              [
-                7,
-                4
-              ]
-            ]
-          },
+          "scale": {"domain": ["Aquaculture", "Wild catch"], "range": [[1, 0], [7, 4]]},
           "legend": null
         }
       }
@@ -149,51 +76,27 @@
     {
       "name": "first_lead_pointer",
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"
-        }
+        {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
-      "mark": {
-        "type": "rule",
-        "strokeWidth": 1.2,
-        "yOffset": -8,
-        "y2Offset": -33
-      },
+      "mark": {"type": "rule", "strokeWidth": 1.2, "yOffset": -8, "y2Offset": -33},
       "encoding": {
-        "y2": {
-          "field": "real_m"
-        },
-        "color": {
-          "value": "#52666b"
-        }
+        "y2": {"field": "real_m"},
+        "color": {"value": "#52666b"}
       }
     },
     {
       "name": "first_lead_point",
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"
-        }
+        {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "fill": "#f8f6ef",
-        "stroke": "#087f83",
-        "strokeWidth": 2,
-        "size": 85
-      },
+      "mark": {"type": "point", "filled": true, "fill": "#f8f6ef", "stroke": "#087f83", "strokeWidth": 2, "size": 85},
       "encoding": {
-        "color": {
-          "value": "#087f83"
-        }
+        "color": {"value": "#087f83"}
       }
     },
     {
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2025"
-        },
+        {"filter": "toNumber(datum.year_end) === 2025"},
         {
           "calculate": "(datum.sector === 'Aquaculture' ? 'Farmed' : 'Wild catch')+'\\nA$'+format(datum.real_m,',.0f')+'m'",
           "as": "endpoint_label"
@@ -210,62 +113,42 @@
         "fontWeight": 600
       },
       "encoding": {
-        "text": {
-          "field": "endpoint_label",
-          "type": "nominal"
-        }
+        "text": {"field": "endpoint_label", "type": "nominal"}
       }
     },
     {
       "name": "first_lead_year",
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"
-        }
+        {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
       "mark": {
         "type": "text",
-        "align": {
-          "expr": "width < 400 ? 'right' : 'center'"
-        },
+        "align": {"expr": "width < 400 ? 'right' : 'center'"},
         "dy": -73,
         "fontSize": 13,
         "fontWeight": 600
       },
       "encoding": {
-        "text": {
-          "field": "year",
-          "type": "nominal"
-        },
-        "color": {
-          "value": "#183b46"
-        }
+        "text": {"field": "year", "type": "nominal"},
+        "color": {"value": "#183b46"}
       }
     },
     {
       "name": "first_lead_label",
       "transform": [
-        {
-          "filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"
-        }
+        {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
       "mark": {
         "type": "text",
-        "align": {
-          "expr": "width < 400 ? 'right' : 'center'"
-        },
+        "align": {"expr": "width < 400 ? 'right' : 'center'"},
         "dy": -57,
         "lineBreak": "\n",
         "lineHeight": 16,
         "fontSize": 13
       },
       "encoding": {
-        "text": {
-          "value": "Farmed value\nfirst leads"
-        },
-        "color": {
-          "value": "#183b46"
-        }
+        "text": {"value": "Farmed value\nfirst leads"},
+        "color": {"value": "#183b46"}
       }
     }
   ],

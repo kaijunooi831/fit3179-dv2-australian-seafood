@@ -2,15 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
   "height": 470,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "font": "Geist",
     "axis": {
       "labelFontSize": 13,
@@ -34,24 +29,10 @@
       "padding": 8
     }
   },
-  "data": {
-    "url": "data/aquaculture_mix.csv"
-  },
-  "mark": {
-    "type": "rect",
-    "stroke": "#f8f9f5",
-    "strokeWidth": 2
-  },
+  "data": {"url": "data/aquaculture_mix.csv"},
+  "mark": {"type": "rect", "stroke": "#f8f9f5", "strokeWidth": 2},
   "encoding": {
-    "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": null,
-      "axis": {
-        "labelAngle": -45,
-        "labelFontSize": 13
-      }
-    },
+    "x": {"field": "year", "type": "ordinal", "title": null, "axis": {"labelAngle": -45, "labelFontSize": 13}},
     "y": {
       "field": "species",
       "type": "nominal",
@@ -74,79 +55,44 @@
         "Yabbies",
         "Other Crustaceans"
       ],
-      "axis": {
-        "labelLimit": 180,
-        "labelExpr": "datum.label === 'Other nei' ? 'Other products' : datum.label"
-      }
+      "axis": {"labelLimit": 180, "labelExpr": "datum.label === 'Other nei' ? 'Other products' : datum.label"}
     },
     "color": {
       "field": "share",
       "type": "quantitative",
       "title": "Share of aquaculture value",
       "scale": {
-        "domain": {
-          "expr": "groupView === 'All groups (0\u201370%)' ? [0,0.7] : [0,0.1]"
-        },
-        "range": [
-          "#eaf1e9",
-          "#086d75"
-        ]
+        "domain": {"expr": "groupView === 'All groups (0–70%)' ? [0,0.7] : [0,0.1]"},
+        "range": ["#eaf1e9", "#086d75"]
       },
       "legend": {
         "format": ".0%",
         "gradientLength": 240,
         "title": "Share of all farmed value",
-        "values": {
-          "expr": "groupView === 'All groups (0\u201370%)' ? [0,0.35,0.7] : [0,0.05,0.1]"
-        }
+        "values": {"expr": "groupView === 'All groups (0–70%)' ? [0,0.35,0.7] : [0,0.05,0.1]"}
       }
     },
     "tooltip": [
-      {
-        "field": "product_name",
-        "type": "nominal",
-        "title": "Product group"
-      },
-      {
-        "field": "year",
-        "type": "nominal"
-      },
-      {
-        "field": "share",
-        "type": "quantitative",
-        "title": "Share",
-        "format": ".2%"
-      },
-      {
-        "field": "value_m",
-        "type": "quantitative",
-        "title": "A$ million",
-        "format": ",.2f"
-      }
+      {"field": "product_name", "type": "nominal", "title": "Product group"},
+      {"field": "year", "type": "nominal", "title": "Year"},
+      {"field": "share", "type": "quantitative", "title": "Share", "format": ".2%"},
+      {"field": "value_m", "type": "quantitative", "title": "A$ million", "format": ",.2f"}
     ]
   },
   "params": [
     {
       "name": "groupView",
-      "value": "All groups (0\u201370%)",
+      "value": "All groups (0–70%)",
       "bind": {
         "input": "select",
-        "options": [
-          "All groups (0\u201370%)",
-          "Explore smaller groups \u00b7 0\u201310%"
-        ],
+        "options": ["All groups (0–70%)", "Explore smaller groups · 0–10%"],
         "name": "Compare: "
       }
     }
   ],
   "transform": [
-    {
-      "filter": "groupView === 'All groups (0\u201370%)' || datum.species !== 'Salmonids'"
-    },
-    {
-      "calculate": "datum.species === 'Other nei' ? 'Other products' : datum.species",
-      "as": "product_name"
-    }
+    {"filter": "groupView === 'All groups (0–70%)' || datum.species !== 'Salmonids'"},
+    {"calculate": "datum.species === 'Other nei' ? 'Other products' : datum.species", "as": "product_name"}
   ],
   "description": "Salmonids dominate farmed value across the decade"
 }

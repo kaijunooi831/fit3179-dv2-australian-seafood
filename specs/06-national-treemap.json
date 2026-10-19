@@ -3,10 +3,7 @@
   "width": 1000,
   "height": 460,
   "padding": 0,
-  "autosize": {
-    "type": "none",
-    "contains": "padding"
-  },
+  "autosize": {"type": "none", "contains": "padding"},
   "background": "transparent",
   "config": {
     "font": "Geist"
@@ -15,13 +12,7 @@
     {
       "name": "raw",
       "url": "data/species_latest.csv",
-      "format": {
-        "type": "csv",
-        "parse": {
-          "value_m": "number",
-          "share": "number"
-        }
-      },
+      "format": {"type": "csv", "parse": {"value_m": "number", "share": "number"}},
       "transform": [
         {
           "type": "formula",
@@ -33,55 +24,23 @@
     {
       "name": "parents",
       "values": [
-        {
-          "label": "root",
-          "value_m": 0
-        },
-        {
-          "label": "Finfish, sharks and rays",
-          "parent": "root",
-          "value_m": 0
-        },
-        {
-          "label": "Crustaceans",
-          "parent": "root",
-          "value_m": 0
-        },
-        {
-          "label": "Molluscs",
-          "parent": "root",
-          "value_m": 0
-        }
+        {"label": "root", "value_m": 0},
+        {"label": "Finfish, sharks and rays", "parent": "root", "value_m": 0},
+        {"label": "Crustaceans", "parent": "root", "value_m": 0},
+        {"label": "Molluscs", "parent": "root", "value_m": 0}
       ]
     },
     {
       "name": "tree",
-      "source": [
-        "raw",
-        "parents"
-      ],
+      "source": ["raw", "parents"],
       "transform": [
-        {
-          "type": "stratify",
-          "key": "label",
-          "parentKey": "parent"
-        },
+        {"type": "stratify", "key": "label", "parentKey": "parent"},
         {
           "type": "treemap",
           "field": "value_m",
-          "sort": {
-            "field": "value",
-            "order": "descending"
-          },
+          "sort": {"field": "value", "order": "descending"},
           "method": "squarify",
-          "size": [
-            {
-              "signal": "width"
-            },
-            {
-              "signal": "height"
-            }
-          ],
+          "size": [{"signal": "width"}, {"signal": "height"}],
           "paddingInner": 3,
           "paddingOuter": 3,
           "paddingTop": 28,
@@ -93,20 +52,14 @@
       "name": "groups",
       "source": "tree",
       "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.depth === 1 && datum.children"
-        }
+        {"type": "filter", "expr": "datum.depth === 1 && datum.children"}
       ]
     },
     {
       "name": "leaves",
       "source": "tree",
       "transform": [
-        {
-          "type": "filter",
-          "expr": "!datum.children"
-        },
+        {"type": "filter", "expr": "!datum.children"},
         {
           "type": "formula",
           "expr": "datum.label === 'Other fish' ? ['Other finfish,','sharks and rays'] : datum.label === 'Other industry' ? ['Other','products'] : split(datum.label, ' ')",
@@ -155,88 +108,45 @@
     {
       "name": "familyFrames",
       "type": "rect",
-      "from": {
-        "data": "groups"
-      },
+      "from": {"data": "groups"},
       "encode": {
         "update": {
-          "x": {
-            "field": "x0"
-          },
-          "x2": {
-            "field": "x1"
-          },
-          "y": {
-            "field": "y0"
-          },
-          "y2": {
-            "field": "y1"
-          },
-          "fill": {
-            "value": "#e9eee4"
-          },
-          "stroke": {
-            "value": "#9daa9d"
-          },
-          "strokeWidth": {
-            "value": 1
-          }
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"field": "y0"},
+          "y2": {"field": "y1"},
+          "fill": {"value": "#e9eee4"},
+          "stroke": {"value": "#9daa9d"},
+          "strokeWidth": {"value": 1}
         }
       }
     },
     {
       "name": "familyLabels",
       "type": "text",
-      "from": {
-        "data": "groups"
-      },
+      "from": {"data": "groups"},
       "encode": {
         "update": {
-          "x": {
-            "signal": "datum.x0+7"
-          },
-          "y": {
-            "signal": "datum.y0+18"
-          },
-          "text": {
-            "field": "label"
-          },
-          "fontSize": {
-            "value": 13
-          },
-          "fontWeight": {
-            "value": "bold"
-          },
-          "fill": {
-            "value": "#183b46"
-          }
+          "x": {"signal": "datum.x0+7"},
+          "y": {"signal": "datum.y0+18"},
+          "text": {"field": "label"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "#183b46"}
         }
       }
     },
     {
       "name": "productAreas",
       "type": "rect",
-      "from": {
-        "data": "leaves"
-      },
+      "from": {"data": "leaves"},
       "encode": {
         "update": {
-          "x": {
-            "field": "x0"
-          },
-          "x2": {
-            "field": "x1"
-          },
-          "y": {
-            "field": "y0"
-          },
-          "y2": {
-            "field": "y1"
-          },
-          "fill": {
-            "scale": "color",
-            "field": "label"
-          },
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"field": "y0"},
+          "y2": {"field": "y1"},
+          "fill": {"scale": "color", "field": "label"},
           "tooltip": {
             "signal": "{'Group': datum.parent === 'root' ? 'Separately reported' : datum.parent,'Product':datum.label === 'Other industry' ? 'Other products' : datum.species,'A$ million':format(datum.value_m,',.1f'),'Share of national value':format(datum.share,'.1%')}"
           }
@@ -247,29 +157,17 @@
       "name": "productLabels",
       "type": "text",
       "interactive": false,
-      "from": {
-        "data": "leaves"
-      },
+      "from": {"data": "leaves"},
       "encode": {
         "update": {
-          "x": {
-            "signal": "datum.x0+7"
-          },
-          "y": {
-            "signal": "datum.y0+18"
-          },
+          "x": {"signal": "datum.x0+7"},
+          "y": {"signal": "datum.y0+18"},
           "text": {
             "signal": "datum.y1-datum.y0 > (length(datum.lines)+1)*18+12 ? split(join(datum.lines, '\\n')+'\\n'+format(datum.share,'.1%'), '\\n') : datum.lines"
           },
-          "fontSize": {
-            "value": 14
-          },
-          "lineHeight": {
-            "value": 18
-          },
-          "fill": {
-            "value": "white"
-          },
+          "fontSize": {"value": 14},
+          "lineHeight": {"value": 18},
+          "fill": {"value": "white"},
           "opacity": {
             "signal": "datum.x1-datum.x0 > (datum.label === 'Other fish' ? 112 : 90) && datum.y1-datum.y0 > length(datum.lines)*18+12 ? 1 : 0"
           }
@@ -281,21 +179,11 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {
-            "value": 3
-          },
-          "y": {
-            "value": 12
-          },
-          "text": {
-            "value": "National production value \u00b7 2024\u201325"
-          },
-          "fontSize": {
-            "value": 13
-          },
-          "fill": {
-            "value": "#52666b"
-          }
+          "x": {"value": 3},
+          "y": {"value": 12},
+          "text": {"value": "National production value · 2024–25"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#52666b"}
         }
       }
     }

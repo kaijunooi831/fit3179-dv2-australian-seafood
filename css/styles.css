@@ -66,7 +66,7 @@ h1, h2, .aside-copy h3 {
 }
 h1, h2, h3 { overflow-wrap: anywhere; }
 h2 { font-size: clamp(2.2rem, 4.1vw, 3.4rem); line-height: 1.16; margin: 0 0 22px; }
-.hero { background: var(--surface); padding: 28px 0; }
+.hero { background: var(--surface); padding: 28px 0 36px; }
 /* Layer 1 holds chapter navigation; layer 2 lets the skip link sit above it. */
 .story-nav { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 .nav-inner { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 0 32px; border-bottom: 1px solid #b9c8bc; }
