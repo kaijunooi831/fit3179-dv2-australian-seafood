@@ -9,12 +9,8 @@
     "font": "Geist"
   },
   "signals": [
-    {"name": "compact", "update": "width < 760"},
-    {"name": "mapWidth", "update": "width"},
     {"name": "mapHeight", "update": "max(240,min(510,width*0.48))"},
-    {"name": "keyX", "update": "0"},
     {"name": "keyY", "update": "mapHeight + 126"},
-    {"name": "keyWidth", "update": "width-keyX"},
     {"name": "height", "update": "keyY + 352"},
     {
       "name": "partnerFocus",
@@ -69,31 +65,47 @@
           "type": "geopoint",
           "projection": "worldProjection",
           "fields": ["origin_longitude", "origin_latitude"],
-          "as": ["sx", "sy"]
+          "as": ["startX", "startY"]
         },
         {
           "type": "geopoint",
           "projection": "worldProjection",
           "fields": ["longitude", "latitude"],
-          "as": ["tx", "ty"]
+          "as": ["endX", "endY"]
         },
         {
           "type": "formula",
           "expr": "datum.partner === 'China' ? 0.32 : datum.partner === 'Malaysia' ? -0.34 : datum.partner === 'Hong Kong' ? 0.12 : datum.partner === 'Singapore' ? -0.2 : datum.partner === 'Vietnam' ? -0.05 : datum.partner === 'Thailand' ? -0.12 : datum.partner === 'Indonesia' ? -0.38 : 0.2",
           "as": "bend"
         },
-        {"type": "formula", "expr": "(datum.sx+datum.tx)/2 + (datum.ty-datum.sy)*datum.bend", "as": "cx"},
-        {"type": "formula", "expr": "(datum.sy+datum.ty)/2 - (datum.tx-datum.sx)*datum.bend", "as": "cy"},
         {
           "type": "formula",
-          "expr": "'M'+datum.sx+','+datum.sy+' Q'+datum.cx+','+datum.cy+' '+datum.tx+','+datum.ty",
+          "expr": "(datum.startX + datum.endX) / 2 + (datum.endY - datum.startY) * datum.bend",
+          "as": "controlX"
+        },
+        {
+          "type": "formula",
+          "expr": "(datum.startY + datum.endY) / 2 - (datum.endX - datum.startX) * datum.bend",
+          "as": "controlY"
+        },
+        {
+          "type": "formula",
+          "expr": "'M' + datum.startX + ',' + datum.startY + ' Q' + datum.controlX + ',' + datum.controlY + ' ' + datum.endX + ',' + datum.endY",
           "as": "curve"
         },
-        {"type": "formula", "expr": "0.0225*datum.sx+0.255*datum.cx+0.7225*datum.tx", "as": "ax"},
-        {"type": "formula", "expr": "0.0225*datum.sy+0.255*datum.cy+0.7225*datum.ty", "as": "ay"},
         {
           "type": "formula",
-          "expr": "atan2(0.15*(datum.cy-datum.sy)+0.85*(datum.ty-datum.cy),0.15*(datum.cx-datum.sx)+0.85*(datum.tx-datum.cx))*180/PI",
+          "expr": "0.0225 * datum.startX + 0.255 * datum.controlX + 0.7225 * datum.endX",
+          "as": "arrowX"
+        },
+        {
+          "type": "formula",
+          "expr": "0.0225 * datum.startY + 0.255 * datum.controlY + 0.7225 * datum.endY",
+          "as": "arrowY"
+        },
+        {
+          "type": "formula",
+          "expr": "atan2(0.15 * (datum.controlY - datum.startY) + 0.85 * (datum.endY - datum.controlY), 0.15 * (datum.controlX - datum.startX) + 0.85 * (datum.endX - datum.controlX)) * 180 / PI",
           "as": "angle"
         }
       ]
@@ -122,18 +134,12 @@
         {"type": "geopoint", "projection": "worldProjection", "fields": ["longitude", "latitude"], "as": ["x", "y"]}
       ]
     },
-    {
-      "name": "widthKey",
-      "values": [{"value_m": 50, "x": 0}, {"value_m": 200, "x": 100}, {"value_m": 650, "x": 205}]
-    },
+    {"name": "widthKey", "values": [{"value_m": 50, "x": 0}, {"value_m": 200, "x": 100}, {"value_m": 650, "x": 205}]},
     {
       "name": "selectionGuide",
       "source": "routes",
       "transform": [
-        {
-          "type": "filter",
-          "expr": "partnerFocus !== 'All selected partners' && scale('flowWidth',datum.value_m) < 1.5"
-        }
+        {"type": "filter", "expr": "partnerFocus !== 'All selected partners' && scale('flowWidth',datum.value_m) < 1.5"}
       ]
     }
   ],
@@ -143,7 +149,7 @@
       "type": "equalEarth",
       "rotate": [-130, 0, 0],
       "fit": {"signal": "data('ocean')"},
-      "extent": {"signal": "[[8,38],[mapWidth-8,mapHeight+28]]"}
+      "extent": {"signal": "[[8,38],[width-8,mapHeight+28]]"}
     }
   ],
   "scales": [
@@ -152,7 +158,7 @@
       "name": "barLength",
       "type": "linear",
       "domain": [0, 700],
-      "range": {"signal": "[0,max(40,keyWidth-178)]"},
+      "range": {"signal": "[0,max(40,width-178)]"},
       "zero": true
     },
     {
@@ -257,8 +263,8 @@
       "aria": false,
       "encode": {
         "update": {
-          "x": {"field": "ax"},
-          "y": {"field": "ay"},
+          "x": {"field": "arrowX"},
+          "y": {"field": "arrowY"},
           "shape": {"value": "triangle-right"},
           "angle": {"field": "angle"},
           "size": {"signal": "pow(max(7,scale('flowWidth',datum.value_m)*1.8),2)"},
@@ -274,8 +280,8 @@
       "from": {"data": "routes"},
       "encode": {
         "update": {
-          "x": {"field": "tx"},
-          "y": {"field": "ty"},
+          "x": {"field": "endX"},
+          "y": {"field": "endY"},
           "size": {"value": 22},
           "fill": {"signal": "datum.partner === partnerFocus ? '#172f39' : '#183b46'"},
           "opacity": {"value": 1},
@@ -316,14 +322,14 @@
       "from": {"data": "labels"},
       "encode": {
         "update": {
-          "x": {"signal": "datum.tx+(datum.tx>mapWidth*0.7 ? -8 : 8)"},
-          "y": {"field": "ty", "offset": -10},
+          "x": {"signal": "datum.endX+(datum.endX>width*0.7 ? -8 : 8)"},
+          "y": {"field": "endY", "offset": -10},
           "text": {"field": "partner"},
-          "align": {"signal": "datum.tx>mapWidth*0.7 ? 'right' : 'left'"},
+          "align": {"signal": "datum.endX>width*0.7 ? 'right' : 'left'"},
           "fontSize": {"value": 13},
           "fontWeight": {"value": "bold"},
           "fill": {"value": "#183b46"},
-          "limit": {"signal": "min(170,mapWidth-16)"}
+          "limit": {"signal": "min(170,width-16)"}
         }
       }
     },
@@ -374,12 +380,7 @@
       "name": "rankedKey",
       "type": "group",
       "encode": {
-        "update": {
-          "x": {"signal": "keyX"},
-          "y": {"signal": "keyY"},
-          "width": {"signal": "keyWidth"},
-          "height": {"value": 342}
-        }
+        "update": {"x": {"value": 0}, "y": {"signal": "keyY"}, "width": {"signal": "width"}, "height": {"value": 342}}
       },
       "marks": [
         {
@@ -452,7 +453,7 @@
           "encode": {
             "update": {
               "x": {"value": 0},
-              "width": {"signal": "keyWidth"},
+              "width": {"signal": "width"},
               "y": {"signal": "38+scale('rows',datum.partner)"},
               "height": {"signal": "bandwidth('rows')"},
               "fill": {"value": "transparent"},
@@ -505,7 +506,7 @@
           "from": {"data": "partners"},
           "encode": {
             "update": {
-              "x": {"signal": "keyWidth-3"},
+              "x": {"signal": "width-3"},
               "y": {"signal": "38+scale('rows',datum.partner)+bandwidth('rows')/2"},
               "align": {"value": "right"},
               "baseline": {"value": "middle"},

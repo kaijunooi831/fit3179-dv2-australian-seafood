@@ -18,15 +18,6 @@
       "ticks": false,
       "labelPadding": 8,
       "titlePadding": 12
-    },
-    "legend": {
-      "orient": "bottom",
-      "labelFontSize": 13,
-      "titleFontSize": 13,
-      "labelLimit": 220,
-      "columns": 2,
-      "symbolSize": 90,
-      "padding": 8
     }
   },
   "data": {"url": "data/sector_real.csv"},
@@ -121,13 +112,7 @@
       "transform": [
         {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
-      "mark": {
-        "type": "text",
-        "align": {"expr": "width < 400 ? 'right' : 'center'"},
-        "dy": -73,
-        "fontSize": 13,
-        "fontWeight": 600
-      },
+      "mark": {"type": "text", "align": "center", "dy": -73, "fontSize": 13, "fontWeight": 600},
       "encoding": {
         "text": {"field": "year", "type": "nominal"},
         "color": {"value": "#183b46"}
@@ -138,14 +123,7 @@
       "transform": [
         {"filter": "toNumber(datum.year_end) === 2020 && datum.sector === 'Aquaculture'"}
       ],
-      "mark": {
-        "type": "text",
-        "align": {"expr": "width < 400 ? 'right' : 'center'"},
-        "dy": -57,
-        "lineBreak": "\n",
-        "lineHeight": 16,
-        "fontSize": 13
-      },
+      "mark": {"type": "text", "align": "center", "dy": -57, "lineBreak": "\n", "lineHeight": 16, "fontSize": 13},
       "encoding": {
         "text": {"value": "Farmed value\nfirst leads"},
         "color": {"value": "#183b46"}

@@ -32,7 +32,7 @@
   "data": {"url": "data/aquaculture_mix.csv"},
   "mark": {"type": "rect", "stroke": "#f8f9f5", "strokeWidth": 2},
   "encoding": {
-    "x": {"field": "year", "type": "ordinal", "title": null, "axis": {"labelAngle": -45, "labelFontSize": 13}},
+    "x": {"field": "year", "type": "ordinal", "title": null, "axis": {"labelAngle": -45}},
     "y": {
       "field": "species",
       "type": "nominal",

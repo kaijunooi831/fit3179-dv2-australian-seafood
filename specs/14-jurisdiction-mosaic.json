@@ -7,18 +7,6 @@
     "background": "transparent",
     "view": {"stroke": null},
     "font": "Geist",
-    "axis": {
-      "labelFontSize": 13,
-      "titleFontSize": 13,
-      "titleFontWeight": "normal",
-      "labelColor": "#52666b",
-      "titleColor": "#52666b",
-      "gridColor": "#e4e9e7",
-      "domain": false,
-      "ticks": false,
-      "labelPadding": 8,
-      "titlePadding": 12
-    },
     "legend": {
       "orient": "bottom",
       "labelFontSize": 13,

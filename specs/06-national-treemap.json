@@ -127,8 +127,8 @@
       "from": {"data": "groups"},
       "encode": {
         "update": {
-          "x": {"signal": "datum.x0+7"},
-          "y": {"signal": "datum.y0+18"},
+          "x": {"field": "x0", "offset": 7},
+          "y": {"field": "y0", "offset": 18},
           "text": {"field": "label"},
           "fontSize": {"value": 13},
           "fontWeight": {"value": "bold"},
@@ -160,8 +160,8 @@
       "from": {"data": "leaves"},
       "encode": {
         "update": {
-          "x": {"signal": "datum.x0+7"},
-          "y": {"signal": "datum.y0+18"},
+          "x": {"field": "x0", "offset": 7},
+          "y": {"field": "y0", "offset": 18},
           "text": {
             "signal": "datum.y1-datum.y0 > (length(datum.lines)+1)*18+12 ? split(join(datum.lines, '\\n')+'\\n'+format(datum.share,'.1%'), '\\n') : datum.lines"
           },

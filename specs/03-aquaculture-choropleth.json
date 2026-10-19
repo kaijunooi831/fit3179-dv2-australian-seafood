@@ -7,18 +7,6 @@
     "background": "transparent",
     "view": {"stroke": null},
     "font": "Geist",
-    "axis": {
-      "labelFontSize": 13,
-      "titleFontSize": 13,
-      "titleFontWeight": "normal",
-      "labelColor": "#52666b",
-      "titleColor": "#52666b",
-      "gridColor": "#e4e9e7",
-      "domain": false,
-      "ticks": false,
-      "labelPadding": 8,
-      "titlePadding": 12
-    },
     "legend": {
       "orient": "bottom",
       "labelFontSize": 13,
@@ -41,7 +29,7 @@
       "from": {
         "data": {"url": "data/state_map_series.csv"},
         "key": "state_year",
-        "fields": ["year", "aquaculture_share", "aquaculture_m", "wild_m", "total_m"]
+        "fields": ["year", "aquaculture_share", "aquaculture_m", "wild_m"]
       }
     }
   ],
@@ -98,7 +86,7 @@
       "transform": [
         {"filter": "toNumber(datum.year_end) === mapYear"},
         {
-          "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
+          "calculate": "replace(replace(replace(datum.state, ' Australia', '\\nAustralia'), ' Territory', '\\nTerritory'), 'New South Wales', 'New South\\nWales')",
           "as": "map_label"
         }
       ],

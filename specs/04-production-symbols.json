@@ -7,18 +7,6 @@
     "background": "transparent",
     "view": {"stroke": null},
     "font": "Geist",
-    "axis": {
-      "labelFontSize": 13,
-      "titleFontSize": 13,
-      "titleFontWeight": "normal",
-      "labelColor": "#52666b",
-      "titleColor": "#52666b",
-      "gridColor": "#e4e9e7",
-      "domain": false,
-      "ticks": false,
-      "labelPadding": 8,
-      "titlePadding": 12
-    },
     "legend": {
       "orient": "bottom",
       "labelFontSize": 13,
@@ -61,12 +49,7 @@
           "type": "quantitative",
           "title": "A$ million",
           "scale": {"domain": [0, 2000], "range": [0, 5000], "zero": true},
-          "legend": {
-            "values": [100, 500, 2000],
-            "symbolLimit": 3,
-            "columns": {"expr": "width < 340 ? 2 : 3"},
-            "direction": "horizontal"
-          }
+          "legend": {"values": [100, 500, 2000], "symbolLimit": 3, "columns": 3, "direction": "horizontal"}
         },
         "tooltip": [
           {"field": "state", "type": "nominal", "title": "State or territory"},
@@ -112,7 +95,7 @@
       "transform": [
         {"filter": "toNumber(datum.year_end) === mapYear"},
         {
-          "calculate": "({\"New South Wales\": \"New South\\nWales\", \"Victoria\": \"Victoria\", \"Queensland\": \"Queensland\", \"South Australia\": \"South\\nAustralia\", \"Western Australia\": \"Western\\nAustralia\", \"Tasmania\": \"Tasmania\", \"Northern Territory\": \"Northern\\nTerritory\"})[datum.state]",
+          "calculate": "replace(replace(replace(datum.state, ' Australia', '\\nAustralia'), ' Territory', '\\nTerritory'), 'New South Wales', 'New South\\nWales')",
           "as": "map_label"
         }
       ]
