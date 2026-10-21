@@ -93,6 +93,7 @@
 
   async function render(chart) {
     const node = document.getElementById(chart.id);
+    if (node.closest('[hidden]')) return;
     node.dataset.chartState = 'loading';
     node.setAttribute('aria-busy', 'true');
     const loading = document.createElement('p');
