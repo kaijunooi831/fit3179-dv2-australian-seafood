@@ -30,7 +30,3 @@ This repository contains only the website and its public aggregate data, geograp
 - `specs/index.json` maps container IDs to readable chart specifications and data files.
 - Eleven charts use Vega-Lite: `data`, `transform`, `mark`/`layer`, `encoding`, and `params` for bound controls. The treemap and flow map use Vega for hierarchical layout and projected paths, with named data, scales, signals and marks.
 - The two Australian map specs expose `mapYear`; the shared HTML slider updates both through the Vega View API. The flow map and ranked bars share `partnerFocus` within one Vega specification.
-
-Library versions are pinned and bundled locally. The specifications use version 6 schemas to match these libraries. Data paths are relative to the webpage root, including when hosted under the GitHub Pages project path.
-
-Before embedding, `main.js` inserts the checked CSV/JSON contents into the in-memory spec as `data.values`, preserving format options. This makes **View Source**, **View Compiled Vega** and **Open in Vega Editor** self-contained, including nested map lookups. Repository specs retain their readable relative URLs. Editor copies use initial parameter values; the page font, HTML controls and cross-chart JavaScript are not exported.
