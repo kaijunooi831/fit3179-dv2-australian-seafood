@@ -73,12 +73,12 @@
       "transform": [
         {"filter": "toNumber(datum.year_end) === mapYear && datum.state === 'Victoria'"}
       ],
-      "mark": {"type": "rule", "color": "#52666b", "strokeWidth": 1, "x2Offset": 30, "y2Offset": 15},
+      "mark": {"type": "rule", "color": "#52666b", "strokeWidth": 1},
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
         "latitude": {"field": "latitude", "type": "quantitative"},
-        "longitude2": {"field": "longitude"},
-        "latitude2": {"field": "latitude"}
+        "longitude2": {"datum": 147},
+        "latitude2": {"datum": -37.8}
       }
     },
     {
